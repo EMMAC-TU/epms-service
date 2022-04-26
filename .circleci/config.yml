@@ -6,37 +6,37 @@ orbs:
 
 executors:
   node-executor:
-    working_directory: ~/vendor-contract-mgmt-service
+    working_directory: ~/epms-service
     docker:
       - image: cimg/node:17.2.0
 
-jobs:
-  lint-project:
-    executor: node-executor
-    steps:
-      - checkout
-      - run: 
-          command: npm install
-      - run:
-          name: ESLint Project
-          command: npm run lint
-      - run:
-          name: Prettier
-          command: npm run format
+# jobs:
+#   lint-project:
+#     executor: node-executor
+#     steps:
+#       - checkout
+#       - run: 
+#           command: npm install
+#       - run:
+#           name: ESLint Project
+#           command: npm run lint
+#       - run:
+#           name: Prettier
+#           command: npm run format
 
-  check-semver:
-    executor: node-executor
-    parameters:
-      tag:
-        type: string
-    steps:
-      - run:
-          name: "Check semantic version"
-          command: >
-            if curl --silent -f -lSL "https://index.docker.io/v1/repositories/0717080/${CIRCLE_PROJECT_REPONAME}/tags/<<parameters.tag>>" > /dev/null; then
-                echo "<<parameters.tag>> already exists in the ${CIRCLE_PROJECT_REPONAME} on dockerhub"
-                exit 1
-            fi
+  # check-semver:
+  #   executor: node-executor
+  #   parameters:
+  #     tag:
+  #       type: string
+  #   steps:
+  #     - run:
+  #         name: "Check semantic version"
+  #         command: >
+  #           if curl --silent -f -lSL "https://index.docker.io/v1/repositories/0717080/${CIRCLE_PROJECT_REPONAME}/tags/<<parameters.tag>>" > /dev/null; then
+  #               echo "<<parameters.tag>> already exists in the ${CIRCLE_PROJECT_REPONAME} on dockerhub"
+  #               exit 1
+  #           fi
   
   deploy-digitalocean:
     executor: do-cli/default
@@ -50,13 +50,13 @@ jobs:
             doctl apps create-deployment $DIGITAL_OCEAN_APP_ID --verbose true
 
 workflows:
-  test-lint-project:
-    jobs:
-      - lint-project:
-          filters:
-            branches:
-              ignore:
-                - /main/
+  # test-lint-project:
+  #   jobs:
+  #     - lint-project:
+  #         filters:
+  #           branches:
+  #             ignore:
+  #               - /main/
 
   deploy-production:
     jobs:
@@ -68,7 +68,7 @@ workflows:
             - check-semver
           context:
             - DOCKERHUB
-          image: "0717080/$CIRCLE_PROJECT_REPONAME"
+          image: "jmorales15/$CIRCLE_PROJECT_REPONAME"
           tag: $(cat ./package.json | grep version | head -1 | awk -F= "{ print $2 }" | sed 's/[version:,\",]//g' | tr -d '[[:space:]]')
           filters:
             branches:
@@ -78,7 +78,7 @@ workflows:
           name: publish-docker-prod
           context:
             - DOCKERHUB
-          image: "0717080/$CIRCLE_PROJECT_REPONAME"
+          image: "jmorales15/$CIRCLE_PROJECT_REPONAME"
           tag: latest
           filters:
             branches:
