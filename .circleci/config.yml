@@ -24,19 +24,19 @@ jobs:
 #           name: Prettier
 #           command: npm run format
 
-  # check-semver:
-  #   executor: node-executor
-  #   parameters:
-  #     tag:
-  #       type: string
-  #   steps:
-  #     - run:
-  #         name: "Check semantic version"
-  #         command: >
-  #           if curl --silent -f -lSL "https://index.docker.io/v1/repositories/0717080/${CIRCLE_PROJECT_REPONAME}/tags/<<parameters.tag>>" > /dev/null; then
-  #               echo "<<parameters.tag>> already exists in the ${CIRCLE_PROJECT_REPONAME} on dockerhub"
-  #               exit 1
-  #           fi
+  check-semver:
+    executor: node-executor
+    parameters:
+      tag:
+        type: string
+    steps:
+      - run:
+          name: "Check semantic version"
+          command: >
+            if curl --silent -f -lSL "https://index.docker.io/v1/repositories/jmorales15/${CIRCLE_PROJECT_REPONAME}/tags/<<parameters.tag>>" > /dev/null; then
+                echo "<<parameters.tag>> already exists in the ${CIRCLE_PROJECT_REPONAME} on dockerhub"
+                exit 1
+            fi
   
   deploy-digitalocean:
     executor: do-cli/default
