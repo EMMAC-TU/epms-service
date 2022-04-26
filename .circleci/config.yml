@@ -85,6 +85,8 @@ workflows:
               only: /main/
 
       - deploy-digitalocean:
+          context:
+            - DIGITALOCEAN
           requires:
             - publish-docker-prod
           filters:
