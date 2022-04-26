@@ -10,7 +10,7 @@ executors:
     docker:
       - image: cimg/node:17.2.0
 
-# jobs:
+jobs:
 #   lint-project:
 #     executor: node-executor
 #     steps:
