@@ -17,7 +17,7 @@ export class PostgresDriver {
     public static async connect(): Promise<void> {
         try {
             if (!this._client) {
-                this._client = new Client(process.env.DBURI);
+                this._client = new Client(process.env.DB_URI);
                 await this._client.connect();
             }
         } catch (error) {
