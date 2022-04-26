@@ -19,7 +19,7 @@ COPY --chown=node:node --from=build /usr/src/app /usr/src/app/
 # COPY --chown=node:node --from=build /build/node_modules /usr/src/app/node_modules
 # COPY --from=build /usr/src/app /usr/src/app
 RUN npm run build
-COPY .env .
+# COPY .env .
 RUN chmod -w /usr/src/app
 
 USER node
