@@ -2,9 +2,10 @@
   "name": "epms-service",
   "version": "1.0.0",
   "description": "",
-  "main": "src/app.ts",
+  "main": "src/app.js",
   "scripts": {
-    "start": "nodemon"
+    "start": "nodemon",
+    "build": "tsc"
   },
   "author": "",
   "license": "ISC",

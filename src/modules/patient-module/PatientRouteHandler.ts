@@ -4,6 +4,8 @@ import { PatientCreation } from "../../shared/types/PatientCreation";
 import { ResourceError, ResourceErrorReason } from "../../shared/types/Errors";
 import { PatientComponent } from "./bloc/PatientComponent";
 import { Patient } from "../../shared/entity/Patient";
+import { Authorized } from "../../shared/decorators/Authorize";
+import { PermissionLevels } from "../../shared/types/PermissionLevels";
 
 export class PatientRouteHandler {
     public static buildRouter() {
@@ -18,7 +20,14 @@ export class PatientRouteHandler {
         return router;
     }
 
-    // add auth
+    @Authorized({
+        permissions: [
+            PermissionLevels.ADMIN,
+            PermissionLevels.DOCTOR,
+            PermissionLevels.NURSE,
+            PermissionLevels.RECEPTIONIST
+        ]
+    })
     static async updatePatient(req: Request, res: Response, next: NextFunction) {
         try {
             const patientid = req.params.id;
@@ -35,7 +44,15 @@ export class PatientRouteHandler {
         }
     }
 
-    // add auth
+    @Authorized({
+        permissions: [
+            PermissionLevels.ADMIN,
+            PermissionLevels.DOCTOR,
+            PermissionLevels.NURSE,
+            PermissionLevels.RECEPTIONIST,
+            PermissionLevels.VENDOR
+        ]
+    })
     static async getAPatient(req: Request, res: Response, next: NextFunction) {
         try {
             const patientid = req.params.id;
@@ -49,7 +66,12 @@ export class PatientRouteHandler {
         }
     }
 
-    // add auth
+    @Authorized({
+        permissions: [
+            PermissionLevels.ADMIN,
+            PermissionLevels.NURSE
+        ]
+    })
     static async createPatient(req: Request, res: Response, next: NextFunction) {
         try {
             const newPat = req.body as PatientCreation;
@@ -60,7 +82,15 @@ export class PatientRouteHandler {
         }
     }
 
-    // add auth
+    @Authorized({
+        permissions: [
+            PermissionLevels.ADMIN,
+            PermissionLevels.DOCTOR,
+            PermissionLevels.NURSE,
+            PermissionLevels.RECEPTIONIST,
+            PermissionLevels.VENDOR
+        ]
+    })
     static async searchPatients(req: Request, res: Response, next: NextFunction) {
         try {
             if (!req.query) {
@@ -75,7 +105,15 @@ export class PatientRouteHandler {
         }
     }
 
-    // add auth
+    @Authorized({
+        permissions: [
+            PermissionLevels.ADMIN,
+            PermissionLevels.DOCTOR,
+            PermissionLevels.NURSE,
+            PermissionLevels.RECEPTIONIST,
+            PermissionLevels.VENDOR
+        ]
+    })
     static async getPatients(req: Request, res: Response, next: NextFunction) {
         try {
             const results = await PatientComponent.getInstance().getPatients();

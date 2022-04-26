@@ -29,9 +29,9 @@ export class EmployeeRouteHandler {
         return router;
     }
 
-    // @Authorized({
-    //     permissions: [ PermissionLevels.ADMIN ]
-    // })
+    @Authorized({
+        permissions: [ PermissionLevels.ADMIN ]
+    })
     static async searchEmployee(req: Request, res: Response, next: NextFunction) {
         try {
             if (!req.query){
@@ -46,9 +46,9 @@ export class EmployeeRouteHandler {
         }
     }
 
-    // @Authorized({
-    //     permissions: [PermissionLevels.ADMIN]
-    // })
+    @Authorized({
+        permissions: [PermissionLevels.ADMIN]
+    })
     static async updateEmployee(req: Request, res: Response, next: NextFunction) {
         try {
             if (!req.params.id) {
@@ -63,9 +63,9 @@ export class EmployeeRouteHandler {
         }
     }
 
-    // @Authorized({
-    //     permissions: [ PermissionLevels.ADMIN ]
-    // })
+    @Authorized({
+        permissions: [ PermissionLevels.ADMIN ]
+    })
     static async getEmployee(req: Request, res: Response, next: NextFunction) {
         try {
             if(!req.params.id) {
@@ -86,9 +86,9 @@ export class EmployeeRouteHandler {
      * @param res 
      * @param next 
      */
-    // @Authorized({
-    //     permissions: [ PermissionLevels.ADMIN ]
-    // })
+    @Authorized({
+        permissions: [ PermissionLevels.ADMIN ]
+    })
     static async getEmployees(req: Request, res: Response, next: NextFunction) {
         try {
             const emp = await EmployeeComponent.getInstance().getEmployees();
@@ -105,9 +105,9 @@ export class EmployeeRouteHandler {
      * @param res 
      * @param next 
      */
-    //  @Authorized({
-    //     permissions: [ PermissionLevels.ADMIN ]
-    // })
+     @Authorized({
+        permissions: [ PermissionLevels.ADMIN ]
+    })
     static async createEmployee(req: Request, res: Response, next: NextFunction) {
         const newEmp = req.body as EmployeeCreation
         try{

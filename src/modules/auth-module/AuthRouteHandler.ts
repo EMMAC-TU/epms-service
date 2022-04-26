@@ -7,7 +7,6 @@ export class AuthRouteHandler {
     public static buildRouter() {
         const router = Router();
 
-        router.get('/keys', this.generateKeyPairs);
         router.patch('/auth/password', this.changePassword);
         router.post('/auth/login', this.login);
         router.post('/auth/employees');
@@ -57,9 +56,5 @@ export class AuthRouteHandler {
         } catch (err) {
             next(err);
         }
-    }
-
-    static generateKeyPairs(req: Request, res: Response) {
-        res.json({ publicKey: "HelloThere" });
     }
 }
