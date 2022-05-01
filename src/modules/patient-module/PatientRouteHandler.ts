@@ -75,8 +75,8 @@ export class PatientRouteHandler {
     static async createPatient(req: Request, res: Response, next: NextFunction) {
         try {
             const newPat = req.body as PatientCreation;
-            const pat = await PatientComponent.getInstance().createPatient(newPat);
-            res.json(pat);
+            const patient = await PatientComponent.getInstance().createPatient(newPat);
+            res.json(patient);
         } catch (err) {
             next(err);
         }
@@ -116,8 +116,8 @@ export class PatientRouteHandler {
     })
     static async getPatients(req: Request, res: Response, next: NextFunction) {
         try {
-            const results = await PatientComponent.getInstance().getPatients();
-            res.json(results);
+            const patients = await PatientComponent.getInstance().getPatients();
+            res.json(patients);
         } catch (err) {
             next(err);
         }

@@ -47,7 +47,7 @@ export class PatientComponent implements IPatientComponent {
         if(!(await PatientDatastore.getInstance().doesPatientExist({ field: 'patientid', value: patientid }))) {
             throw new ResourceError('Patient does not exist', ResourceErrorReason.NOT_FOUND);
         }
-        verifyUpdateFields(updatePatient, ['employeeid', 'creationdate']);
+        verifyUpdateFields(updatePatient, ['patientid', 'creationdate']);
         await PatientDatastore.getInstance().updatePatient(patientid, updatePatient);
     }
 

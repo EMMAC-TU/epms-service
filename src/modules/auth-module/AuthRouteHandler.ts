@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express";
+import { Authorized } from "../../shared/decorators/Authorize";
 import { ResourceErrorReason } from "../../shared/types/Errors";
 import { ResourceError } from "../../shared/types/Errors";
 import { AuthComponent } from "./bloc/AuthComponent";
@@ -9,11 +10,11 @@ export class AuthRouteHandler {
 
         router.patch('/auth/password', this.changePassword);
         router.post('/auth/login', this.login);
-        router.post('/auth/employees');
 
         return router;
     }
 
+    @Authorized()
     static async changePassword(req: Request, res: Response, next: NextFunction) {
         try {
             const curr_password = req.body.password;

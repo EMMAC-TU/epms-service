@@ -41,10 +41,9 @@ export class AuthComponent implements IAuthComponent {
         if ( !(await EmployeeDatastore.getInstance().doesEmployeeExist({ field: 'employeeid', value: employeeId }))) {
             throw new ResourceError("Employee does not exist", ResourceErrorReason.NOT_FOUND);
         }
-        console.log("validating password");
         validatePasswordCriteria(password);
-        await AuthDatastore.getInstance().updatePassword(employeeId, password);
-        console.log("Password Updated!")
+        const hashedPassword = await this.bcrypt.saltPassword(password);
+        await AuthDatastore.getInstance().updatePassword(employeeId, hashedPassword);
     }
     
     /**
