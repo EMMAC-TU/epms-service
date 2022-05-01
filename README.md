@@ -51,11 +51,6 @@ The routes:
 | POST | /auth/login | Log a user of the system in |
 
 ### PATCH /auth/password
-| Key | Type |
-| --- | ---- |
-| employeeid | string |
-| password   | string |
-| newpassword | string |
 ```
 {
     employeeid: string,
