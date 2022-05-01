@@ -28,7 +28,7 @@ The routes:
 | employeeid | string |
 | password   | string |
 | newpassword | string |
-```json
+```
 {
     "employeeid": "string",
     "password": "string",
@@ -38,7 +38,7 @@ The routes:
 In the request header, the Authorization header must be set with a bearer token given during login. The employeeid in the token must match the employeeid in the request
 
 ### POST /auth/login
-```json
+```
 {
     userid: string,
     password: string
@@ -46,7 +46,7 @@ In the request header, the Authorization header must be set with a bearer token 
 ```
 
 Response on a successful login:
-```json
+```
 {
     employee: {
         employeeid: string,
@@ -93,7 +93,7 @@ The Employee Module handles the following actions:
 ### GET /employees
 Get a list of all the employees. No request body needed. Authorization required
 Response:
-```json
+```
 {
     employees: employee[]
 }
@@ -112,7 +112,7 @@ Get a list of employees based on a query.
 
 Request body is not required for this route
 
-```json
+```
 {
     employees: [
         {
@@ -129,7 +129,7 @@ Request body is not required for this route
 Get an employee by id
 
 Response:
-```json
+```
 {
     employee: {
         employeeid: string,
@@ -159,7 +159,7 @@ Response:
 Create a new employee
 
 Request: *Note: ? means an optional*
-```json
+```
 {
     userid: string,
     password: string,
@@ -186,7 +186,7 @@ Request: *Note: ? means an optional*
 Update an Employee
 
 Request:
-```json
+```
 {
     userid?: string,
     firstname?: string,
@@ -229,7 +229,7 @@ The Patient Module handles the following actions:
 ### GET /patients
 Get a list of all the patients. No request body needed. Authorization required
 Response:
-```json
+```
 {
     patients: patient[]
 }
@@ -248,7 +248,7 @@ Get a list of patients based on a query.
 
 Request body is not required for this route
 
-```json
+```
 {
     patients: [
         {
@@ -265,7 +265,7 @@ Request body is not required for this route
 Get a patient by id
 
 Response:
-```json
+```
 {
     patientid: string,
     firstname: string,
@@ -298,7 +298,7 @@ Response:
 Create a patient
 
 Request:
-```json
+```
 {
     firstname: string,
     lastname: string,
@@ -330,7 +330,7 @@ Request:
 Update a patient
 
 Request:
-```json
+```
 {
     firstname?: string,
     middleinitial?: string,
