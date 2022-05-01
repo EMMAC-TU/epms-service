@@ -23,11 +23,16 @@ The routes:
 | POST | /auth/login | Log a user of the system in |
 
 ### PATCH /auth/password
+| Key | Type |
+| --- | ---- |
+| employeeid | string |
+| password   | string |
+| newpassword | string |
 ```json
 {
-    employeeid: string,
-    password: string,
-    newpassword: string
+    "employeeid": "string",
+    "password": "string",
+    "newpassword": "string"
 }
 ```
 In the request header, the Authorization header must be set with a bearer token given during login. The employeeid in the token must match the employeeid in the request
