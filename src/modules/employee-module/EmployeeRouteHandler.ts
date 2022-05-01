@@ -91,8 +91,8 @@ export class EmployeeRouteHandler {
     })
     static async getEmployees(req: Request, res: Response, next: NextFunction) {
         try {
-            const emp = await EmployeeComponent.getInstance().getEmployees();
-            res.json({ emp });
+            const employees = await EmployeeComponent.getInstance().getEmployees();
+            res.json({ employees });
         } catch (err) {
             next(err);
         }
@@ -111,9 +111,8 @@ export class EmployeeRouteHandler {
     static async createEmployee(req: Request, res: Response, next: NextFunction) {
         const newEmp = req.body as EmployeeCreation
         try{
-            console.log("Creating Employee");
-            const emp = await EmployeeComponent.getInstance().createEmployee(newEmp);
-            res.json({...emp}).status(201)
+            const employee = await EmployeeComponent.getInstance().createEmployee(newEmp);
+            res.json({ employee }).status(201)
         } catch (err){
             next(err);
         }

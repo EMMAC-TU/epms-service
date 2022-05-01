@@ -24,7 +24,6 @@ export class EmployeeDatastore implements IEmployeeDatastore {
         value: string
     }): Promise<boolean> {
         const builtQuery = buildDoesFieldExistQuery('employee', query);
-        console.log((await this.client.query(builtQuery)).rows)
         return (await this.client.query(builtQuery)).rows.length !== 0;
     }
     
@@ -68,8 +67,7 @@ export class EmployeeDatastore implements IEmployeeDatastore {
      */
     async createEmployee(newEmployee: Employee): Promise<void> {
         const query = buildCreateQuery(newEmployee);
-        const res = await this.client.query(query);
-        console.log(res.rows);
+        await this.client.query(query);
     }
 
     /**
@@ -79,7 +77,6 @@ export class EmployeeDatastore implements IEmployeeDatastore {
     async searchEmployees(searchQuery: SearchQuery): Promise<Employee[]> {
         const query = buildSearchQuery(searchQuery,  'employee');
         const { rows } = await this.client.query(query);
-        console.log(rows);
         return rows;
     }
 

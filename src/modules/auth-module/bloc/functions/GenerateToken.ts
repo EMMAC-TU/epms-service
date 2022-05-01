@@ -14,7 +14,6 @@ export function generateToken(user: IEmployee, expires?: number) {
         issuer: process.env.ISSUER,
         expiresIn: expiration
     }
-    console.log("Signing Token");
     const token = jwt.sign(payload, process.env.SECRET, options);
     return token;
 }

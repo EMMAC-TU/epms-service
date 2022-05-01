@@ -18,10 +18,6 @@ const patientReturns = {
 };
 
 export function buildLoginQuery(userid: string) {
-    console.log({ 
-        text: `SELECT ${employeeReturns.allInfo+", password"} FROM employee WHERE userid=$1`,
-        values: [userid]
-    });
     return { 
         text: `SELECT ${employeeReturns.allInfo+", password"} FROM employee WHERE userid=$1`,
         values: [userid]
@@ -39,7 +35,6 @@ export function buildGetEntityQuery(table: 'patient' | 'employee', id?: string){
         query.push(`WHERE ${table}id = $1`);    
         val.push(id);
     }
-    console.log({ text: query.join(' '), values: val });
     return { text: query.join(' '), values: val };
 }
 
@@ -66,7 +61,6 @@ export function buildUpdateEntityQuery(table: string, id: string, partialEnity: 
     vals.push(id);
 
     // Return a complete query string
-    console.log({ text: query.join(' '), values: vals });
     return { text: query.join(' '), values: vals}
      
 }
@@ -102,7 +96,6 @@ export function buildCreateQuery(entity?: Employee | Patient): { text: string, v
         text: query.join(' '),
         values: vals
     }
-    console.log(queryobj);
     return queryobj
 }
 
@@ -155,7 +148,6 @@ export function buildSearchQuery(query: SearchQuery, table: 'employee' | 'patien
         text: buildquery.join(' '),
         values: vals
     }
-    console.log(q);
     return q;
 }
 
@@ -173,7 +165,6 @@ export function buildDoesFieldExistQuery(table: 'employee' | 'patient', query: {
     buildquery.push(`FROM ${table}`);
     buildquery.push('WHERE');
     buildquery.push(`${query.field}=$1`);
-    console.log({ text: buildquery.join(' '), values: [query.value]})
     return { text: buildquery.join(' '), values: [query.value]} ;
 }
 
