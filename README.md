@@ -30,9 +30,9 @@ The routes:
 | newpassword | string |
 ```
 {
-    "employeeid": "string",
-    "password": "string",
-    "newpassword": "string"
+    employeeid: string,
+    password: string,
+    newpassword: string
 }
 ```
 In the request header, the Authorization header must be set with a bearer token given during login. The employeeid in the token must match the employeeid in the request
