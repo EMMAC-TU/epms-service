@@ -2,13 +2,41 @@
 
 ## Table of Contents
 
-* Purpose of EPMS-Service
-* Auth Module
-* Employee Module
-* Patient Module
-* How to start
+* [How to start](#how-to-start)
+* [Purpose of EPMS-Service](#purpose-of-epms-service)
+* [Auth Module](#auth-module)
+  * [Logging in](#post-authlogin)
+  * [Changing password](#patch-authpassword)
+* [Employee Module](#employee-module)
+  * [Creating a new employee](#post-employees)
+  * [Update an employee](#patch-employeesid)
+  * [Get an Employee](#get-employeesid)
+  * [Get all Employees](#get-employees)
+  * [Search Employees](#get-employeessearch)
+* [Patient Module](#patient-module)
+  * [Creating a new patient](#post-patients)
+  * [Update a new patient](#patch-patientsid)
+  * [Get an patient](#get-patientsid)
+  * [Get all patients](#get-patients)
+  * [Search patients](#get-patientssearch)
+
+
+## How to Start
+The service runs on localhost:3000. Ensure that Port 3000 is free and nothing else is running on it
+
+Have Nodejs and NPM installed. Once installed pull the repo and run:
+```sh
+$ npm install
+```
+Once packages have been installed run:
+```sh
+$ npm run
+```
+You will need the environment variable DB_URI to connect to the database
 
 ## Purpose of EPMS-Service
+
+EPMS-Service is the backend to the Employee Patient Management Service
 
 ## Auth Module
 The Auth module handles the following actions:
@@ -76,7 +104,7 @@ Response on a successful login:
 ## Employee Module
 The Employee Module handles the following actions:
 - Creating a new employee
-- Update a new employee
+- Update an employee
 - Get an Employee
 - Get all Employees
 - Search Employees
@@ -88,6 +116,7 @@ The Employee Module handles the following actions:
 | GET | /employees/:id | Get an employee by their id |
 | POST | /employees | Create a new employee |
 | PATCH | /employees/:id | Update an employee |
+
 **Note: All these requests require a bearer token and administrator authorization**
 
 ### GET /employees
@@ -214,8 +243,8 @@ The Patient Module handles the following actions:
 - Creating a new patient
 - Update a new patient
 - Get an patient
-- Get all patienta
-- Search patienta
+- Get all patients
+- Search patients
 
 | HTTP | Route | Description |
 | ---- | ----- | ----------- |
@@ -224,6 +253,7 @@ The Patient Module handles the following actions:
 | GET | /patients/:id | Get a patient by their id |
 | POST | /patients | Create a new patient |
 | PATCH | /patients/:id | Update a patient |
+
 **Note: All these requests require a bearer token and proper authorization**
 
 ### GET /patients
@@ -357,16 +387,3 @@ Request:
     nok_lastname?: string
 }
 ```
-
-## How to Start
-The service runs on localhost:3000. Ensure that Port 3000 is free and not else is running on it
-
-Have Nodejs and NPM installed. Once installed pull the repo and run:
-```sh
-$ npm install
-```
-Once packages have been installed run:
-```sh
-$ npm run
-```
-You will need the environment variable DB_URI to connect to the database
