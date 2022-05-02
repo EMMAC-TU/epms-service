@@ -38,6 +38,8 @@ You will need the environment variable DB_URI to connect to the database
 
 EPMS-Service is the backend to the Employee Patient Management Service
 
+Deployed Link: https://epms-service-api-q8l3e.ondigitalocean.app/
+
 ## Auth Module
 The Auth module handles the following actions:
 - Logging in
