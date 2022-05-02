@@ -130,9 +130,15 @@ Get a list of employees based on a query.
 | ------------ | ----------- | --------- | 
 | employeeid   | The employee id of an employee | Yes |
 | dateofbirth  | The date of birth of an employee | Yes |
+| lastname | The last name or portion of  | Yes |
 | page | The current page of the list | No |
 | limit | The amount of employees to show. Default is 20 | No | 
 | sort | Sort by last name. -1 Z-A; 1 A-Z; 0 is no sort | Yes |
+
+Examples: 
+
+* GET /employees/search?page=1&sort=1
+* GET /employees/search?page=3&lastname=Mor&limit=5
 
 Request body is not required for this route
 
@@ -267,12 +273,19 @@ Get a list of patients based on a query.
 | ------------ | ----------- | --------- | 
 | patientid   | The patientid of an patient | Yes |
 | dateofbirth  | The date of birth of an patient | Yes |
+| lastname | The last name or portion of | Yes |
 | page | The current page of the list | No |
 | limit | The amount of employees to show. Default is 20 | No | 
 | sort | Sort by last name. -1 Z-A; 1 A-Z; 0 is no sort | Yes |
 
 Request body is not required for this route
 
+Examples: 
+
+* GET /patients/search?page=1&sort=1
+* GET /patients/search?page=3&lastname=Mor&limit=5
+
+Response:
 ```
 {
     patients: [
