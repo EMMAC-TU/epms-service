@@ -19,6 +19,7 @@
   * [Get an patient](#get-patientsid)
   * [Get all patients](#get-patients)
   * [Search patients](#get-patientssearch)
+* [Error Responses](#error-responses)
 
 
 ## How to Start
@@ -395,5 +396,17 @@ Request:
     nok_mobilephone?: string,
     nok_firstname?: string,
     nok_lastname?: string
+}
+```
+
+## Error Responses
+
+Errors can occur for many different reasons.
+
+The following is how the error response will be formatted:
+```
+{
+    status: number,
+    message: string
 }
 ```
