@@ -5,9 +5,6 @@ export function generateToken(user: IEmployee, expires?: number) {
     const expiration = expires ? expires : 28800;
     const payload = {
         employeeid: user.employeeid,
-        firstname: user.firstname,
-        lastname: user.lastname,
-        email: user.email,
         permission: user.position
     };
     const options = {
