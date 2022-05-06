@@ -51,7 +51,7 @@ export class AuthComponent implements IAuthComponent {
      * @param userId 
      * @param password 
      */
-    async login(userId: string, password: string): Promise<{ employee: IEmployee, token:string }> {
+    async login(userId: string, password: string): Promise<string> {
         const employee = await AuthDatastore.getInstance().login(userId);
         if (!employee) {
             throw new ResourceError(`User with ${userId} was not found`, ResourceErrorReason.INVALID_ACCESS);
@@ -64,7 +64,7 @@ export class AuthComponent implements IAuthComponent {
         
         delete employee.password;
 
-        return { employee, token };
+        return token;
     }
     
 
