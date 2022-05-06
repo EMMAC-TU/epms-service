@@ -76,7 +76,7 @@ export class PatientRouteHandler {
         try {
             const newPat = req.body as PatientCreation;
             const patient = await PatientComponent.getInstance().createPatient(newPat);
-            res.json(patient);
+            res.json(patient).status(201);
         } catch (err) {
             next(err);
         }

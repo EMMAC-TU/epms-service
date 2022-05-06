@@ -51,9 +51,9 @@ export class AuthRouteHandler {
                 throw new ResourceError("Password not provided", ResourceErrorReason.BAD_REQUEST);
             }
 
-            const user = await AuthComponent.getInstance().login(req.body.userid, req.body.password);
+            const token = await AuthComponent.getInstance().login(req.body.userid, req.body.password);
             
-            res.json(user);
+            res.json(token);
         } catch (err) {
             next(err);
         }

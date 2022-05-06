@@ -20,7 +20,7 @@ export interface IAuthComponent {
      * @param userId 
      * @param password 
      */
-    login(userId: string, password: string):Promise<{ employee: IEmployee, token:string }>;
+    login(userId: string, password: string):Promise<string>;
 
 
 }
