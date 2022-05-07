@@ -19,7 +19,7 @@ const patientReturns = {
 
 export function buildLoginQuery(userid: string) {
     return { 
-        text: `SELECT password"} FROM employee WHERE userid=$1`,
+        text: `SELECT password FROM employee WHERE userid=$1`,
         values: [userid]
     }
 }
