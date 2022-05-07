@@ -53,7 +53,7 @@ export class AuthRouteHandler {
 
             const token = await AuthComponent.getInstance().login(req.body.userid, req.body.password);
             
-            res.json(token);
+            res.json({token});
         } catch (err) {
             next(err);
         }
