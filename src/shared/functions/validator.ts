@@ -41,13 +41,13 @@ export function validateEmailCriteria(email: string): void{
 }
 
 export function validatePhoneNumbers(entity: EmployeeCreation | PatientCreation) {
-  if(entity.homephone && !entity.homephone.match(/^\d{10}$/)){
+  if(entity.homephone && !entity.homephone.match(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im)){
     throw new ResourceError("Home phone number is not formatted correctly", ResourceErrorReason.BAD_REQUEST);
   }
-  if(entity.mobilephone && !entity.mobilephone.match(/^\d{10}$/)){
+  if(entity.mobilephone && !entity.mobilephone.match(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im)){
       throw new ResourceError("Mobile phone number is not formatted correctly", ResourceErrorReason.BAD_REQUEST);
   }
-  if(entity.workphone && !entity.workphone.match(/^\d{10}$/)){
+  if(entity.workphone && !entity.workphone.match(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im)){
       throw new ResourceError("Work phone number is not formatted correctly", ResourceErrorReason.BAD_REQUEST);
   }
 }
