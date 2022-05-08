@@ -7,6 +7,7 @@ import { generateToken } from "./functions/GenerateToken";
 import { IEmployee } from "../../../shared/interfaces/IEmployee";
 import { EmployeeDatastore } from "../../../modules/employee-module/datastore/EmployeeDatastore";
 import { validatePasswordCriteria } from "../../../shared/functions/validator";
+import { Token } from "../../../shared/types/Token";
 
 export class AuthComponent implements IAuthComponent {
     private static instance: IAuthComponent;
@@ -65,6 +66,22 @@ export class AuthComponent implements IAuthComponent {
         delete employee.password;
 
         return token;
+    }
+
+    /**
+     * 
+     * @param auths 
+     * @param token 
+     * @returns 
+     */
+    isAuthorized(auths: string[], token: Token): Boolean {
+        let isAuthorized = false;
+        auths.forEach((val) => {
+            if (val === token.permission) {
+                isAuthorized = true;
+            }
+        });
+        return isAuthorized;
     }
     
 

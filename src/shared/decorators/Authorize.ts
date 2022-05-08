@@ -38,6 +38,7 @@ export function Authorized(auth?: AuthParams) {
                 if (auth && !checkPermissions(auth.permissions, decoded, request)) {
                     throw new ResourceError("Not Authorized To Perform This Task", ResourceErrorReason.INVALID_ACCESS);
                 }
+                request.body.token = decoded;
                 return original.apply(this, args);
             } catch (err) {
                 if (err instanceof jwt.JsonWebTokenError){
