@@ -36,5 +36,5 @@ export function HttpErrorParser(
             status.code = 500;
             status.message = "Internal Service Error";
     }
-    res.json(status).status(status.code);
+    res.status(status.code).json(status);
 }

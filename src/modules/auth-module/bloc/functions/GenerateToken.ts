@@ -10,7 +10,7 @@ export function generateToken(user: IEmployee, expires?: number) {
     const options = {
         issuer: process.env.ISSUER,
         expiresIn: expiration
-    }
+    };
     const token = jwt.sign(payload, process.env.SECRET, options);
     return token;
 }
