@@ -20,6 +20,7 @@
   * [Get all patients](#get-patients)
   * [Search patients](#get-patientssearch)
 * [Error Responses](#error-responses)
+* [Authorization](#authorization)
 
 
 ## How to Start
@@ -406,7 +407,34 @@ Errors can occur for many different reasons.
 The following is how the error response will be formatted:
 ```
 {
-    status: number,
+    code: number,
     message: string
+}
+```
+
+## Authorization
+
+Authorization in EHRS will be done with [JWTs](https://jwt.io/) 
+
+The decrypted token will have the following format:
+```
+{
+    employeeid: string,
+    permission: administrator | nurse | vendor | receptionist | doctor
+    ...
+}
+```
+Tokens will expire after 8 hours of creation.
+
+When a successful login happens, a hashed token will be sent, this token can be used in the `Authorization` header of every request. All request require some form of authorization.
+
+Your `Authorization` header should be formatted in the following way: `Authorization: Bearer {TOKEN}` 
+
+If you are using Angular with the httpclient module for http request, use this code snippet for your authorization headers:
+
+```Typescript
+headers: HttpHeaders = new HttpHeaders();
+function foo() {
+    this.headers = this.headers.set('Authorization', `Bearer ${Token}`);
 }
 ```
