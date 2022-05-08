@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express";
+import { Token } from "../../shared/types/Token";
 import { Authorized } from "../../shared/decorators/Authorize";
 import { ResourceErrorReason } from "../../shared/types/Errors";
 import { ResourceError } from "../../shared/types/Errors";
@@ -10,8 +11,24 @@ export class AuthRouteHandler {
 
         router.patch('/auth/password', this.changePassword);
         router.post('/auth/login', this.login);
-
+        router.post('/auth', this.isAuthorized);
         return router;
+    }
+
+    @Authorized()
+    static async isAuthorized(req: Request, res: Response, next: NextFunction) {
+        try {
+            if (!req.body.authorization) {
+                throw new ResourceError('No Authorization Given', ResourceErrorReason.BAD_REQUEST);
+            }
+            const token = req.body.token as Token;
+            const auths = req.body.authorization;
+            const isAuthorized = AuthComponent.getInstance().isAuthorized(auths, token);
+
+            res.status(200).json({isAuthorized});
+        } catch (err) {
+            next(err);
+        }
     }
 
     @Authorized()
