@@ -23,19 +23,20 @@ export function Authorized(auth?: AuthParams) {
                     throw new ResourceError("Not Authorized", ResourceErrorReason.INVALID_ACCESS);
                 }
                 const token = getToken(headers.authorization);
-                if (token !== null && token !== undefined) {
-                    const decoded = jwt.verify(token, process.env.SECRET) as Token
-                    // If no permissions are given, check to see if the user making the request
-                    // has the same id as in the request
-                    if (!auth && 
-                        request.body.employeeid &&
-                        decoded.employeeid !== request.body.employeeid) {
-                        throw new ResourceError("Not Authorized To Perfom This Task", ResourceErrorReason.INVALID_ACCESS);
-                    }
-                    
-                    if (auth && !checkPermissions(auth.permissions, decoded, request)) {
-                        throw new ResourceError("Not Authorized To Perform This Task", ResourceErrorReason.INVALID_ACCESS);
-                    }
+                if (token === null || token === undefined) {
+                    throw new ResourceError('Not Authorized', ResourceErrorReason.INVALID_ACCESS);
+                }
+                const decoded = jwt.verify(token, process.env.SECRET) as Token
+                // If no permissions are given, check to see if the user making the request
+                // has the same id as in the request
+                if (!auth && 
+                    request.body.employeeid &&
+                    decoded.employeeid !== request.body.employeeid) {
+                    throw new ResourceError("Not Authorized To Perfom This Task", ResourceErrorReason.INVALID_ACCESS);
+                }
+                
+                if (auth && !checkPermissions(auth.permissions, decoded, request)) {
+                    throw new ResourceError("Not Authorized To Perform This Task", ResourceErrorReason.INVALID_ACCESS);
                 }
                 return original.apply(this, args);
             } catch (err) {

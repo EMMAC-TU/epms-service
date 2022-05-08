@@ -54,11 +54,11 @@ export class AuthComponent implements IAuthComponent {
     async login(userId: string, password: string): Promise<string> {
         const employee = await AuthDatastore.getInstance().login(userId);
         if (!employee) {
-            throw new ResourceError(`User with ${userId} was not found`, ResourceErrorReason.INVALID_ACCESS);
+            throw new ResourceError(`User with ${userId} was not found`, ResourceErrorReason.BAD_REQUEST);
         }
         const match = await this.bcrypt.comparePasswords(password, employee.password);
         if (!match) {
-            throw new ResourceError('Password is incorrect', ResourceErrorReason.INVALID_ACCESS);
+            throw new ResourceError('Password is incorrect', ResourceErrorReason.BAD_REQUEST);
         }
         const token = generateToken(employee);
         

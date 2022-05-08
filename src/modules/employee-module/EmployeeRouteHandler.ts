@@ -72,9 +72,9 @@ export class EmployeeRouteHandler {
                 throw new ResourceError("Employee ID Required", ResourceErrorReason.BAD_REQUEST);
             }
             const employeeId = req.params.id;
-            const emp = await EmployeeComponent.getInstance().getEmployee(employeeId);
+            const employee = await EmployeeComponent.getInstance().getEmployee(employeeId);
 
-            res.json(emp).status(200);
+            res.json({employee});
         } catch (err) {
             next(err);
         }
@@ -112,7 +112,7 @@ export class EmployeeRouteHandler {
         const newEmp = req.body as EmployeeCreation
         try{
             const employee = await EmployeeComponent.getInstance().createEmployee(newEmp);
-            res.json({ employee }).status(201)
+            res.status(201).json({ employee })
         } catch (err){
             next(err);
         }
