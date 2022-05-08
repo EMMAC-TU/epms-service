@@ -3,7 +3,7 @@ import { IEmployeeComponent } from "../interfaces/IEmployeeComponent";
 import { EmployeeDatastore } from "../datastore/EmployeeDatastore";
 import { EmployeeCreation } from "../../../shared/types/EmployeeCreation";
 import { BcryptDriver } from "../../../drivers/BcryptDriver";
-import { validatePasswordCriteria, validateEmailCriteria, validatePhoneNumbers, verifyUpdateFields } from "../../../shared/functions/validator";
+import { validatePasswordCriteria, validateEmailCriteria, validatePhoneNumbers, verifyUpdateFields, validateUndefinedNullFields } from "../../../shared/functions/validator";
 import { SearchQuery } from "../../../shared/types/SearchQuery";
 import { ResourceError, ResourceErrorReason } from "../../../shared/types/Errors";
 
@@ -66,7 +66,7 @@ export class EmployeeComponent implements IEmployeeComponent{
         const employee = new Employee(newEmployee);
 
         await EmployeeDatastore.getInstance().createEmployee(employee);
-        
+
         delete employee.password;
 
         return employee;
@@ -122,6 +122,7 @@ export class EmployeeComponent implements IEmployeeComponent{
     private validateInput(newEmp: EmployeeCreation) {
         validatePasswordCriteria(newEmp.password);
         validateEmailCriteria(newEmp.email);
+        newEmp = validateUndefinedNullFields(newEmp);
         if(newEmp.middleinitial && newEmp.middleinitial.length > 1){
             throw new ResourceError("Middle Initial Should be Length 1", ResourceErrorReason.BAD_REQUEST);
         }
