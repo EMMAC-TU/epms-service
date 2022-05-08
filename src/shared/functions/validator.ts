@@ -63,3 +63,14 @@ export function verifyUpdateFields(entity: Partial<Employee> | Partial<Patient> 
       }
   });
 }
+
+export function validateUndefinedNullFields(entity: EmployeeCreation | PatientCreation) {
+  let obj: any = {};
+  Object.entries(entity).forEach((val) => {
+    if (val[1] !== '' || val[1] !== undefined || val[1] !== null) {
+      obj[val[0]] = val[1];
+    }
+  });
+  
+  return obj;
+}
