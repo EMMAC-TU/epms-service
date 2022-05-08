@@ -66,6 +66,8 @@ export class EmployeeComponent implements IEmployeeComponent{
         const employee = new Employee(newEmployee);
 
         await EmployeeDatastore.getInstance().createEmployee(employee);
+        
+        delete employee.password;
 
         return employee;
     }
