@@ -76,27 +76,6 @@ In the request header, the Authorization header must be set with a bearer token 
 Response on a successful login:
 ```
 {
-    employee: {
-        employeeid: string,
-        firstname: string,
-        middleinitial: string,
-        lastname: string,
-        gender: string | null,
-        dateofbirth: date,
-        startdate: date,
-        homephone: string | null,
-        mobilephone: string | null,
-        workphone: string | null,
-        email: string,
-        position: string,
-        userid: string,
-        streetname1: string | null,
-        streetname2: string | null,
-        zipcode: string | null,
-        city: string | null,
-        state: string | null,
-        country: string | null
-    },
     token: string
 }
 ```
