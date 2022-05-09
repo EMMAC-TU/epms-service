@@ -7,6 +7,7 @@
 * [Auth Module](#auth-module)
   * [Logging in](#post-authlogin)
   * [Changing password](#patch-authpassword)
+  * [Is Authorized](#post-auth)
 * [Employee Module](#employee-module)
   * [Creating a new employee](#post-employees)
   * [Update an employee](#patch-employeesid)
@@ -100,6 +101,43 @@ Response on a successful login:
 }
 ```
 
+### POST /auth
+This route allows the client to see if a user currently using the system is authorized to perform an action.
+
+*A Token must be provided in the `Authorization` Header*
+
+Please refer to [Authorization](#authorization) to understand how to set up the header
+
+The following is what should be sent in the request body:
+```
+{
+    authorization: [
+        'PERMISSION'
+    ]
+}
+```
+`Authorization` is an array of string values that can only be the following: `nurse`, `doctor`, `administrator`, `receptionist`, `vendor`
+
+If you are using angular, you can create a Permissions.ts file and enter the following into the file:
+```Typescript
+export const PERMISSIONS = {
+    ADMIN: 'administrator',
+    NURSE: 'nurse',
+    DOCTOR: 'doctor',
+    VENDOR: 'vendor',
+    RECEPTIONIST: 'receptionist'
+}
+```
+
+You can put multiple of these permissions into one request. If one matches what permissions to the token, true is returned.
+
+The following is what the response will look like:
+```
+{
+    isAuthorized: boolean
+}
+```
+
 ## Employee Module
 The Employee Module handles the following actions:
 - Creating a new employee
@@ -136,7 +174,7 @@ Get a list of employees based on a query.
 | dateofbirth  | The date of birth of an employee | Yes |
 | lastname | The last name or portion of  | Yes |
 | page | The current page of the list | No |
-| limit | The amount of employees to show. Default is 20 | No | 
+| limit | The amount of employees to show. Default is 20 | Yes | 
 | sort | Sort by last name. -1 Z-A; 1 A-Z; 0 is no sort | Yes |
 
 Examples: 
@@ -279,7 +317,7 @@ Get a list of patients based on a query.
 | dateofbirth  | The date of birth of an patient | Yes |
 | lastname | The last name or portion of | Yes |
 | page | The current page of the list | No |
-| limit | The amount of employees to show. Default is 20 | No | 
+| limit | The amount of employees to show. Default is 20 | Yes | 
 | sort | Sort by last name. -1 Z-A; 1 A-Z; 0 is no sort | Yes |
 
 Request body is not required for this route
