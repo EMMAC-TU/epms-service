@@ -50,7 +50,7 @@ export class AuthRouteHandler {
 
             const arePasswordsSame = await AuthComponent.getInstance().doPasswordsMatch(employeeid, curr_password);
             if (!arePasswordsSame) {
-                throw new ResourceError('Passwords do not match', ResourceErrorReason.BAD_REQUEST);
+                throw new ResourceError('Password is incorrect', ResourceErrorReason.BAD_REQUEST);
             }
             await AuthComponent.getInstance().updatePassword(employeeid, new_password);
             res.sendStatus(200);
