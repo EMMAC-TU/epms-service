@@ -11,7 +11,7 @@ const employeeReturns = {
 
 const patientReturns = {
     searchResults: "patientid, dateofbirth, lastname",
-    allInfo: "patientid, firstname, middleinitial, lastname, gender, dateofbirth, \
+    allInfo: "patientid, creationdate, firstname, middleinitial, lastname, gender, dateofbirth, \
     outpatient, height, weight, homephone, mobilephone, workphone, email, \
     streetname1, streetname2, zipcode, city, state, country \
     nok_firstname, nok_lastname, nok_mobilephone, insurance_companyname, insurance_memberid, insurance_groupnumber"
