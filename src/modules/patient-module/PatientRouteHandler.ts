@@ -38,7 +38,7 @@ export class PatientRouteHandler {
             const patient = req.body as Partial<Patient>;
             await PatientComponent.getInstance().updatePatient(patientid, patient);
             
-            res.sendStatus(200);
+            res.status(200).json({msg: "Patient Updated"});
         } catch (err) {
             next(err);
         }
