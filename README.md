@@ -58,12 +58,11 @@ The routes:
 ### PATCH /auth/password
 ```
 {
-    employeeid: string,
     password: string,
     newpassword: string
 }
 ```
-In the request header, the Authorization header must be set with a bearer token given during login. The employeeid in the token must match the employeeid in the request
+In the request header, the Authorization header must be set with a bearer token given during login.
 
 ### POST /auth/login
 ```
