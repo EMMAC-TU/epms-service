@@ -53,7 +53,7 @@ export class AuthRouteHandler {
                 throw new ResourceError('Password is incorrect', ResourceErrorReason.BAD_REQUEST);
             }
             await AuthComponent.getInstance().updatePassword(employeeid, new_password);
-            res.sendStatus(200);
+            res.status(200).json("Password Updated");
         } catch (err) {
             next(err);
         }
