@@ -88,6 +88,12 @@ export class EmployeeComponent implements IEmployeeComponent{
                 throw new ResourceError('Username is the same', ResourceErrorReason.BAD_REQUEST);
             }
         }
+        if (updatedEmployee.password) {
+            validatePasswordCriteria(updatedEmployee.password);
+            const hasher = new BcryptDriver();
+            updatedEmployee.password = await hasher.saltPassword(updatedEmployee.password);
+        }
+        
         await EmployeeDatastore.getInstance().updateEmployee(employeeId, updatedEmployee);
     }
 

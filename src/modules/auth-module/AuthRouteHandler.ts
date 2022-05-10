@@ -35,7 +35,7 @@ export class AuthRouteHandler {
     static async changePassword(req: Request, res: Response, next: NextFunction) {
         try {
             const curr_password = req.body.password;
-            const employeeid = req.body.employeeid;
+            const employeeid = (req.body.token as Token).employeeid;
             const new_password = req.body.newpassword;
 
             if (!new_password) {

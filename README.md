@@ -240,6 +240,7 @@ Request:
 ```
 {
     userid?: string,
+    password?: string
     firstname?: string,
     middleinitial?: string,
     lastname?: string,
