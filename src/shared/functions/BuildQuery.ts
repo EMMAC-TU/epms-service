@@ -13,7 +13,7 @@ const patientReturns = {
     searchResults: "patientid, dateofbirth, lastname",
     allInfo: "patientid, creationdate, firstname, middleinitial, lastname, gender, dateofbirth, \
     outpatient, height, weight, homephone, mobilephone, workphone, email, \
-    streetname1, streetname2, zipcode, city, state, country \
+    streetname1, streetname2, zipcode, city, state, country, \
     nok_firstname, nok_lastname, nok_mobilephone, insurance_companyname, insurance_memberid, insurance_groupnumber"
 };
 
@@ -148,6 +148,7 @@ export function buildSearchQuery(query: SearchQuery, table: 'employee' | 'patien
         text: buildquery.join(' '),
         values: vals
     }
+
     return q;
 }
 

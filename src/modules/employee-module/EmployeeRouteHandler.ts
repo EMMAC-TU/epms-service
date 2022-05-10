@@ -57,7 +57,7 @@ export class EmployeeRouteHandler {
             const employeeID = req.params.id;
             const employee = req.body as Partial<Employee>;
             await EmployeeComponent.getInstance().updateEmployee(employeeID,employee);
-            res.sendStatus(200);
+            res.status(200).json({msg: "Employee Updated"});
         } catch (err) {
             next(err);
         }
