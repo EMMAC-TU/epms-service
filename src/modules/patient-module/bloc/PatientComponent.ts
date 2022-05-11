@@ -4,7 +4,7 @@ import { PatientCreation } from "../../../shared/types/PatientCreation";
 import { SearchQuery } from "../../../shared/types/SearchQuery";
 import { PatientDatastore } from "../datastore/PatientDatastore";
 import { IPatientComponent } from "../interfaces/IPatientComponent";
-import { verifyUpdateFields, validatePhoneNumbers, validateEmailCriteria } from "../../../shared/functions/validator";
+import { verifyUpdateFields, validatePhoneNumbers, validateEmailCriteria, isValidUUID } from "../../../shared/functions/validator";
 
 export class PatientComponent implements IPatientComponent {
     private static instance: IPatientComponent;
@@ -31,6 +31,9 @@ export class PatientComponent implements IPatientComponent {
      * @returns 
      */
     async getAPatient(patientid: string): Promise<Patient> {
+        if(!isValidUUID(patientid)) {
+            throw new ResourceError("Employee Id is not valid", ResourceErrorReason.BAD_REQUEST);
+        }
         const patient = await PatientDatastore.getInstance().getAPatient(patientid);
         if (patient.length === 0) {
             throw new ResourceError('Patient Does not exist', ResourceErrorReason.NOT_FOUND);
@@ -79,6 +82,9 @@ export class PatientComponent implements IPatientComponent {
      * @param query 
      */
     async searchPatients(query: SearchQuery): Promise<Patient[]> {
+        if (query.patientid && !isValidUUID(query.patientid)) {
+            delete query.patientid;
+        }
         return await PatientDatastore.getInstance().searchPatients(query);
     }
 

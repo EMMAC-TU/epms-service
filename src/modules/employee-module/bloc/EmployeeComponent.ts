@@ -3,7 +3,14 @@ import { IEmployeeComponent } from "../interfaces/IEmployeeComponent";
 import { EmployeeDatastore } from "../datastore/EmployeeDatastore";
 import { EmployeeCreation } from "../../../shared/types/EmployeeCreation";
 import { BcryptDriver } from "../../../drivers/BcryptDriver";
-import { validatePasswordCriteria, validateEmailCriteria, validatePhoneNumbers, verifyUpdateFields, validateUndefinedNullFields } from "../../../shared/functions/validator";
+import { 
+        validatePasswordCriteria, 
+        validateEmailCriteria,
+        validatePhoneNumbers, 
+        verifyUpdateFields, 
+        validateUndefinedNullFields, 
+        isValidUUID 
+    } from "../../../shared/functions/validator";
 import { SearchQuery } from "../../../shared/types/SearchQuery";
 import { ResourceError, ResourceErrorReason } from "../../../shared/types/Errors";
 
@@ -30,6 +37,9 @@ export class EmployeeComponent implements IEmployeeComponent{
      * @param employeeID 
      */
     async getEmployee(employeeID: string): Promise<Employee> {
+        if(!isValidUUID(employeeID)) {
+            throw new ResourceError("Employee Id is not valid", ResourceErrorReason.BAD_REQUEST);
+        }
         const emp = await EmployeeDatastore.getInstance().getEmployee(employeeID);
         if (emp.length == 0) {
             throw new ResourceError("Employee Not Found", ResourceErrorReason.NOT_FOUND);
@@ -102,6 +112,9 @@ export class EmployeeComponent implements IEmployeeComponent{
      * @param query 
      */
     async findEmployees(query: SearchQuery): Promise<Employee[]> {
+        if (query.employeeid && !isValidUUID(query.employeeid)) {
+            delete query.employeeid;
+        }
         return await EmployeeDatastore.getInstance().searchEmployees(query);
     }
 
