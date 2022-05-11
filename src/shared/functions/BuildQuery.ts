@@ -112,6 +112,7 @@ export function buildSearchQuery(query: SearchQuery, table: 'employee' | 'patien
     const vals: any[] = []; 
     if (query.patientid) {
         whereClauses.push(`patientid=$${index}`);
+        vals.push(query.patientid);
         index ++;
     }
     if (query.employeeid) {
