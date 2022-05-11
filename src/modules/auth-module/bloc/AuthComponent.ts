@@ -53,7 +53,7 @@ export class AuthComponent implements IAuthComponent {
      * @param password 
      */
     async login(userId: string, password: string): Promise<string> {
-        const employee = await AuthDatastore.getInstance().login(userId);
+        const employee = await AuthDatastore.getInstance().login(userId.toLowerCase());
         if (!employee) {
             throw new ResourceError(`User with ${userId} was not found`, ResourceErrorReason.BAD_REQUEST);
         }

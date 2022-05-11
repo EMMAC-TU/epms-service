@@ -155,6 +155,9 @@ export class EmployeeComponent implements IEmployeeComponent{
         }
         
         validatePhoneNumbers(newEmp);
+
+        // Make userid lowercase
+        newEmp.userid = newEmp.userid.toLowerCase();
         
         return true
     }
