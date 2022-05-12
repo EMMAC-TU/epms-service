@@ -20,7 +20,8 @@ const POSITIONS = {
     DOCTOR: 'doctor',
     NURSE: 'nurse',
     VENDOR: 'vendor',
-    RECEPTIONIST: 'receptionist'
+    RECEPTIONIST: 'receptionist',
+    ACCOUNTANT: 'accountant'
 };
 
 export class EmployeeComponent implements IEmployeeComponent{
@@ -151,7 +152,8 @@ export class EmployeeComponent implements IEmployeeComponent{
             newEmp.position !== POSITIONS.DOCTOR &&
             newEmp.position !== POSITIONS.NURSE &&
             newEmp.position !== POSITIONS.RECEPTIONIST &&
-            newEmp.position !== POSITIONS.VENDOR){
+            newEmp.position !== POSITIONS.VENDOR &&
+            newEmp.position !== POSITIONS.ACCOUNTANT){
             throw new ResourceError("Position of employee is not valid", ResourceErrorReason.BAD_REQUEST);
         }
         
