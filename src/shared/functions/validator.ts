@@ -91,6 +91,15 @@ export function validateGender(entity: EmployeeCreation | PatientCreation | Empl
     case 'other':
       entity.gender = 'O';
       break;
+    case 'f':
+      entity.gender = 'F';
+      break;
+    case 'm':
+      entity.gender = 'M';
+      break;
+    case 'o':
+      entity.gender = 'O';
+      break;
     default:
       throw new ResourceError(`${entity.gender} is not a valid gender`, ResourceErrorReason.BAD_REQUEST);
   }
