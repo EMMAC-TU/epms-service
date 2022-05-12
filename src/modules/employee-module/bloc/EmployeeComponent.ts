@@ -9,7 +9,8 @@ import {
         validatePhoneNumbers, 
         verifyUpdateFields, 
         validateUndefinedNullFields, 
-        isValidUUID 
+        isValidUUID, 
+        validateGender
     } from "../../../shared/functions/validator";
 import { SearchQuery } from "../../../shared/types/SearchQuery";
 import { ResourceError, ResourceErrorReason } from "../../../shared/types/Errors";
@@ -113,7 +114,7 @@ export class EmployeeComponent implements IEmployeeComponent{
      */
     async findEmployees(query: SearchQuery): Promise<Employee[]> {
         if (query.employeeid && !isValidUUID(query.employeeid)) {
-            delete query.employeeid;
+            return [];
         }
         return await EmployeeDatastore.getInstance().searchEmployees(query);
     }
@@ -158,6 +159,9 @@ export class EmployeeComponent implements IEmployeeComponent{
 
         // Make userid lowercase
         newEmp.userid = newEmp.userid.toLowerCase();
+
+        // Match Gender
+        validateGender(newEmp);
         
         return true
     }

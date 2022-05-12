@@ -78,3 +78,20 @@ export function validateUndefinedNullFields(entity: EmployeeCreation | PatientCr
   
   return obj;
 }
+
+export function validateGender(entity: EmployeeCreation | PatientCreation | Employee | Patient) {
+  if (!entity.gender) return;
+  switch (entity.gender.toLowerCase()) {
+    case 'female':
+      entity.gender = 'F';
+      break;
+    case 'male':
+      entity.gender = 'M';
+      break;
+    case 'other':
+      entity.gender = 'O';
+      break;
+    default:
+      throw new ResourceError(`${entity.gender} is not a valid gender`, ResourceErrorReason.BAD_REQUEST);
+  }
+}
