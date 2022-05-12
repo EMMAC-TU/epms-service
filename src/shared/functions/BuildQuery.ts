@@ -3,14 +3,14 @@ import { Patient } from "../entity/Patient";
 import { SearchQuery } from "../types/SearchQuery";
 
 const employeeReturns = {
-    searchResults: "employeeid, dateofbirth, lastname",
+    searchResults: "employeeid, dateofbirth, firstname, lastname",
     allInfo: "employeeid, firstname, middleinitial, lastname, gender, dateofbirth, \
     startdate, enddate, homephone, mobilephone, workphone, email, position, userid, \
     streetname1, streetname2, zipcode, city, state, country"
 };
 
 const patientReturns = {
-    searchResults: "patientid, dateofbirth, lastname",
+    searchResults: "patientid, dateofbirth, firstname, lastname",
     allInfo: "patientid, creationdate, firstname, middleinitial, lastname, gender, dateofbirth, \
     outpatient, height, weight, homephone, mobilephone, workphone, email, \
     streetname1, streetname2, zipcode, city, state, country, \
