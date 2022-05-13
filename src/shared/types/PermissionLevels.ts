@@ -3,5 +3,6 @@ export const PermissionLevels = {
     DOCTOR: 'doctor',
     NURSE: 'nurse',
     RECEPTIONIST: 'receptionist',
-    VENDOR: 'vendor'
+    VENDOR: 'vendor',
+    ACCOUNTANT: 'accountant'
 }

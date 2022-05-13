@@ -50,7 +50,8 @@ export class PatientRouteHandler {
             PermissionLevels.DOCTOR,
             PermissionLevels.NURSE,
             PermissionLevels.RECEPTIONIST,
-            PermissionLevels.VENDOR
+            PermissionLevels.VENDOR,
+            PermissionLevels.ACCOUNTANT
         ]
     })
     static async getAPatient(req: Request, res: Response, next: NextFunction) {
@@ -88,7 +89,8 @@ export class PatientRouteHandler {
             PermissionLevels.DOCTOR,
             PermissionLevels.NURSE,
             PermissionLevels.RECEPTIONIST,
-            PermissionLevels.VENDOR
+            PermissionLevels.VENDOR,
+            PermissionLevels.ACCOUNTANT
         ]
     })
     static async searchPatients(req: Request, res: Response, next: NextFunction) {
@@ -111,7 +113,8 @@ export class PatientRouteHandler {
             PermissionLevels.DOCTOR,
             PermissionLevels.NURSE,
             PermissionLevels.RECEPTIONIST,
-            PermissionLevels.VENDOR
+            PermissionLevels.VENDOR,
+            PermissionLevels.ACCOUNTANT
         ]
     })
     static async getPatients(req: Request, res: Response, next: NextFunction) {
