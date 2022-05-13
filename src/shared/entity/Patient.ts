@@ -3,16 +3,16 @@ import { IPatient } from "../interfaces/IPatient";
 import { PatientCreation } from "../types/PatientCreation";
 
 export class Patient implements IPatient {
-    patientID: string;
+    patientid: string;
     height?: number;
     weight?: number;
-    firstName?: string;
-    lastName?: string;
+    firstname?: string;
+    lastname?: string;
     gender?: string;
     outpatient?: boolean;
     creationdate: Date;
     dateofbirth?: string;
-    middleInitial?: string;
+    middleinitial?: string;
     email?: string;
     homephone?: string;
     mobilephone?: string;
@@ -31,16 +31,16 @@ export class Patient implements IPatient {
     nok_lastname?: string;
 
     constructor(patientForm: PatientCreation) {
-        this.patientID = generateUUID();
+        this.patientid = generateUUID();
         this.height = patientForm.height;
         this.weight = patientForm.weight;
-        this.firstName = patientForm.firstname;
-        this.lastName = patientForm.lastname;
+        this.firstname = patientForm.firstname;
+        this.lastname = patientForm.lastname;
         this.dateofbirth = patientForm.dateofbirth;
         this.gender = patientForm.gender;
         this.outpatient = true; // Change this to patientForm.outpatient when inpatient is a thing
         this.creationdate = new Date();
-        this.middleInitial = patientForm.middleinitial;
+        this.middleinitial = patientForm.middleinitial;
         this.email = patientForm.email;
         this.homephone = patientForm.homephone;
         this.mobilephone = patientForm.mobilephone;

@@ -27,10 +27,14 @@ export function Authorized(auth?: AuthParams) {
                     throw new ResourceError('Not Authorized', ResourceErrorReason.INVALID_ACCESS);
                 }
                 const decoded = jwt.verify(token, process.env.SECRET) as Token
+
+                // If no auth array was given, return token in body
+                if (!auth) request.body.token = decoded;
+
                 if (auth && !checkPermissions(auth.permissions, decoded, request)) {
                     throw new ResourceError("Not Authorized To Perform This Task", ResourceErrorReason.INVALID_ACCESS);
                 }
-                request.body.token = decoded;
+                
                 return original.apply(this, args);
             } catch (err) {
                 if (err instanceof jwt.JsonWebTokenError){

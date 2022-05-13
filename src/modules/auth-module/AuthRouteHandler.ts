@@ -4,6 +4,7 @@ import { Authorized } from "../../shared/decorators/Authorize";
 import { ResourceErrorReason } from "../../shared/types/Errors";
 import { ResourceError } from "../../shared/types/Errors";
 import { AuthComponent } from "./bloc/AuthComponent";
+import { PermissionLevels } from "../../shared/types/PermissionLevels";
 
 export class AuthRouteHandler {
     public static buildRouter() {
@@ -35,22 +36,35 @@ export class AuthRouteHandler {
     static async changePassword(req: Request, res: Response, next: NextFunction) {
         try {
             const curr_password = req.body.password;
-            const employeeid = (req.body.token as Token).employeeid;
             const new_password = req.body.newpassword;
+
+            const token = req.body.token as Token;
+            let employeeid =  "";
+            let isAdminUpdatingPassword = false;
+            // Handles an Admin changing the password of an employee
+            if (req.body.employeeid) {
+                if (token.permission === PermissionLevels.ADMIN) {
+                    isAdminUpdatingPassword = true;
+                    employeeid = req.body.employeeid;
+                } else {
+                    throw new ResourceError('Not Authorized to Update Employee Password', ResourceErrorReason.INVALID_ACCESS);
+                }
+            } else {
+                employeeid = token.employeeid;
+            }
 
             if (!new_password) {
                 throw new ResourceError('New Password was not provided', ResourceErrorReason.BAD_REQUEST);
             }
-            if (!curr_password) {
+            if (!isAdminUpdatingPassword && !curr_password) {
                 throw new ResourceError('Password was not Provided', ResourceErrorReason.BAD_REQUEST);
             }
-            if (!employeeid) {
-                throw new ResourceError('Employeeid was not provided', ResourceErrorReason.BAD_REQUEST);
-            }
 
-            const arePasswordsSame = await AuthComponent.getInstance().doPasswordsMatch(employeeid, curr_password);
-            if (!arePasswordsSame) {
-                throw new ResourceError('Password is incorrect', ResourceErrorReason.BAD_REQUEST);
+            if (!isAdminUpdatingPassword){
+                const arePasswordsSame = await AuthComponent.getInstance().doPasswordsMatch(employeeid, curr_password);
+                if (!arePasswordsSame) {
+                    throw new ResourceError('Password is incorrect', ResourceErrorReason.BAD_REQUEST);
+                }
             }
             await AuthComponent.getInstance().updatePassword(employeeid, new_password);
             res.status(200).json("Password Updated");

@@ -2,7 +2,7 @@ export interface IPatient {
     /**
      * 
      */
-    patientID?: string;
+    patientid?: string;
 
     /**
      * 
@@ -27,12 +27,12 @@ export interface IPatient {
     /**
      * 
      */
-    firstName?: string;
+    firstname?: string;
 
     /**
      * 
      */
-    lastName?: string;
+    lastname?: string;
 
     /**
      * 
@@ -52,7 +52,7 @@ export interface IPatient {
     /**
      * 
      */
-    middleInitial?: string;
+    middleinitial?: string;
 
     /**
      * 

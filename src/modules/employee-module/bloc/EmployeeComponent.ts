@@ -9,7 +9,8 @@ import {
         validatePhoneNumbers, 
         verifyUpdateFields, 
         validateUndefinedNullFields, 
-        isValidUUID 
+        isValidUUID, 
+        validateGender
     } from "../../../shared/functions/validator";
 import { SearchQuery } from "../../../shared/types/SearchQuery";
 import { ResourceError, ResourceErrorReason } from "../../../shared/types/Errors";
@@ -19,7 +20,8 @@ const POSITIONS = {
     DOCTOR: 'doctor',
     NURSE: 'nurse',
     VENDOR: 'vendor',
-    RECEPTIONIST: 'receptionist'
+    RECEPTIONIST: 'receptionist',
+    ACCOUNTANT: 'accountant'
 };
 
 export class EmployeeComponent implements IEmployeeComponent{
@@ -113,7 +115,7 @@ export class EmployeeComponent implements IEmployeeComponent{
      */
     async findEmployees(query: SearchQuery): Promise<Employee[]> {
         if (query.employeeid && !isValidUUID(query.employeeid)) {
-            delete query.employeeid;
+            return [];
         }
         return await EmployeeDatastore.getInstance().searchEmployees(query);
     }
@@ -154,11 +156,18 @@ export class EmployeeComponent implements IEmployeeComponent{
             newEmp.position !== POSITIONS.DOCTOR &&
             newEmp.position !== POSITIONS.NURSE &&
             newEmp.position !== POSITIONS.RECEPTIONIST &&
-            newEmp.position !== POSITIONS.VENDOR){
+            newEmp.position !== POSITIONS.VENDOR &&
+            newEmp.position !== POSITIONS.ACCOUNTANT){
             throw new ResourceError("Position of employee is not valid", ResourceErrorReason.BAD_REQUEST);
         }
         
         validatePhoneNumbers(newEmp);
+
+        // Make userid lowercase
+        newEmp.userid = newEmp.userid.toLowerCase();
+
+        // Match Gender
+        validateGender(newEmp);
         
         return true
     }

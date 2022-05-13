@@ -29,6 +29,7 @@ export class PatientDatastore implements IPatientDatastore {
      */
     async doesPatientExist(query: { field: "patientid" | "email"; value: string; }): Promise<boolean> {
         const builtQuery = buildDoesFieldExistQuery('patient', query);
+        console.log(builtQuery);
         const numRows = (await this.client.query(builtQuery)).rowCount;
         return numRows !== 0;
     }
@@ -40,6 +41,8 @@ export class PatientDatastore implements IPatientDatastore {
      */
     async getAPatient(patientId: string): Promise<Patient[]> {
         const query = buildGetEntityQuery('patient', patientId);
+        console.log(query);
+
         const { rows } = await this.client.query(query);
         return rows;
     }
@@ -50,6 +53,8 @@ export class PatientDatastore implements IPatientDatastore {
      */
     async getPatients(): Promise<Patient[]> {
         const query = buildGetEntityQuery('patient');
+        console.log(query);
+
         const { rows } = await this.client.query(query);
         return rows;
     }
@@ -61,6 +66,8 @@ export class PatientDatastore implements IPatientDatastore {
      */
     async updatePatient(patientId: string, updatedPatient: Partial<Patient>): Promise<void> {
         const query = buildUpdateEntityQuery('patient', patientId, updatedPatient);
+        console.log(query);
+
         await this.client.query(query);
     }
 
@@ -70,6 +77,8 @@ export class PatientDatastore implements IPatientDatastore {
      */
     async createPatient(newPatient: Patient): Promise<void> {
         const query = buildCreateQuery(newPatient);
+        console.log(query);
+
         await this.client.query(query);
     }
 
@@ -79,6 +88,8 @@ export class PatientDatastore implements IPatientDatastore {
      */
     async searchPatients(query: SearchQuery): Promise<Patient[]> {
         const builtQuery = buildSearchQuery(query, 'patient');
+        console.log(query);
+
         const { rows } = await this.client.query(builtQuery);
         return rows;
     }

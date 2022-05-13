@@ -4,7 +4,7 @@ import { PatientCreation } from "../../../shared/types/PatientCreation";
 import { SearchQuery } from "../../../shared/types/SearchQuery";
 import { PatientDatastore } from "../datastore/PatientDatastore";
 import { IPatientComponent } from "../interfaces/IPatientComponent";
-import { verifyUpdateFields, validatePhoneNumbers, validateEmailCriteria, isValidUUID } from "../../../shared/functions/validator";
+import { verifyUpdateFields, validatePhoneNumbers, validateEmailCriteria, isValidUUID, validateGender } from "../../../shared/functions/validator";
 
 export class PatientComponent implements IPatientComponent {
     private static instance: IPatientComponent;
@@ -65,12 +65,7 @@ export class PatientComponent implements IPatientComponent {
         if (await PatientDatastore.getInstance().doesPatientExist({ field: 'email', value: patient.email })) {
             throw new ResourceError('Patient with this email already exists', ResourceErrorReason.BAD_REQUEST);
         }
-        validatePhoneNumbers(patient);
-        validateEmailCriteria(patient.email);
-        if (patient.middleinitial && patient.middleinitial.length > 1) {
-            throw new ResourceError("Middle Initial requires length 1", ResourceErrorReason.BAD_REQUEST);
-        }
-
+        this.validateInput(patient);
         const newPatient = new Patient(patient);
         await PatientDatastore.getInstance().createPatient(newPatient);
 
@@ -83,7 +78,7 @@ export class PatientComponent implements IPatientComponent {
      */
     async searchPatients(query: SearchQuery): Promise<Patient[]> {
         if (query.patientid && !isValidUUID(query.patientid)) {
-            delete query.patientid;
+            return [];
         }
         return await PatientDatastore.getInstance().searchPatients(query);
     }
@@ -97,6 +92,15 @@ export class PatientComponent implements IPatientComponent {
             patient.dateofbirth && 
             patient.firstname && 
             patient.lastname )
+    }
+
+    private validateInput(newPatient: PatientCreation) {
+        validatePhoneNumbers(newPatient);
+        validateEmailCriteria(newPatient.email);
+        validateGender(newPatient);
+        if (newPatient.middleinitial && newPatient.middleinitial.length > 1) {
+            throw new ResourceError("Middle Initial requires length 1", ResourceErrorReason.BAD_REQUEST);
+        }
     }
     
 }
