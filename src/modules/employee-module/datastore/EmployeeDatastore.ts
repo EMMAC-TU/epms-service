@@ -88,6 +88,7 @@ export class EmployeeDatastore implements IEmployeeDatastore {
         console.log(query);
 
         const { rows } = await this.client.query(query);
+        console.log(rows);
         return rows;
     }
 
