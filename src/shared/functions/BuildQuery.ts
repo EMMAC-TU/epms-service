@@ -3,15 +3,15 @@ import { Patient } from "../entity/Patient";
 import { SearchQuery } from "../types/SearchQuery";
 
 const employeeReturns = {
-    searchResults: "employeeid, dateofbirth, firstname, lastname",
-    allInfo: "employeeid, firstname, middleinitial, lastname, gender, dateofbirth, \
+    searchResults: "employeeid, dateofbirth::text, firstname, lastname",
+    allInfo: "employeeid, firstname, middleinitial, lastname, gender, dateofbirth::text, \
     startdate, enddate, homephone, mobilephone, workphone, email, position, userid, \
     streetname1, streetname2, zipcode, city, state, country"
 };
 
 const patientReturns = {
-    searchResults: "patientid, dateofbirth, firstname, lastname",
-    allInfo: "patientid, creationdate, firstname, middleinitial, lastname, gender, dateofbirth, \
+    searchResults: "patientid, dateofbirth::text, firstname, lastname",
+    allInfo: "patientid, creationdate, firstname, middleinitial, lastname, gender, dateofbirth::text, \
     outpatient, height, weight, homephone, mobilephone, workphone, email, \
     streetname1, streetname2, zipcode, city, state, country, \
     nok_firstname, nok_lastname, nok_mobilephone, insurance_companyname, insurance_memberid, insurance_groupnumber"
