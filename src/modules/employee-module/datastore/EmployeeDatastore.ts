@@ -2,7 +2,7 @@ import { SearchQuery } from "../../../shared/types/SearchQuery";
 import { PostgresDriver } from "../../../drivers/PostgresDriver";
 import { Employee } from "../../../shared/entity/Employee";
 import { IEmployeeDatastore } from "../interfaces/IEmployeeDatastore";
-import { buildCreateQuery, buildDoesFieldExistQuery, buildGetEntityQuery, buildSearchQuery, buildUpdateEntityQuery } from "../../../shared/functions/BuildQuery";
+import { buildCountQuery, buildCreateQuery, buildDoesFieldExistQuery, buildGetEntityQuery, buildSearchQuery, buildUpdateEntityQuery } from "../../../shared/functions/BuildQuery";
 
 export class EmployeeDatastore implements IEmployeeDatastore {
     private client = PostgresDriver.client
@@ -78,6 +78,12 @@ export class EmployeeDatastore implements IEmployeeDatastore {
         const query = buildSearchQuery(searchQuery,  'employee');
         const { rows } = await this.client.query(query);
         return rows;
+    }
+
+    async getRecordCount(): Promise<any> {
+        const query = buildCountQuery('employee');
+        const { rows } = await this.client.query(query);
+        return rows[0];
     }
 
 }

@@ -1,7 +1,14 @@
 import { Patient } from "../../../shared/entity/Patient";
 import { SearchQuery } from "./../../../shared/types/SearchQuery";
 import { IPatientDatastore } from "../interfaces/IPatientDatastore";
-import { buildCreateQuery, buildDoesFieldExistQuery, buildGetEntityQuery, buildSearchQuery, buildUpdateEntityQuery } from "../../../shared/functions/BuildQuery";
+import {
+    buildCountQuery, 
+    buildCreateQuery, 
+    buildDoesFieldExistQuery, 
+    buildGetEntityQuery, 
+    buildSearchQuery, 
+    buildUpdateEntityQuery
+} from "../../../shared/functions/BuildQuery";
 import { PostgresDriver } from "../../../drivers/PostgresDriver";
 
 export class PatientDatastore implements IPatientDatastore {
@@ -74,6 +81,12 @@ export class PatientDatastore implements IPatientDatastore {
         const builtQuery = buildSearchQuery(query, 'patient');
         const { rows } = await this.client.query(builtQuery);
         return rows;
+    }
+
+    async getRecordCount() {
+        const query =  buildCountQuery('patient');
+        const { rows } = await this.client.query(query);
+        return rows[0];
     }
     
 }

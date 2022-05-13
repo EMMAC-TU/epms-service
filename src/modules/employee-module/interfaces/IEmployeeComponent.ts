@@ -28,4 +28,6 @@ export interface IEmployeeComponent {
      * @param query 
      */
     findEmployees(query: SearchQuery): Promise<Employee[]>;
+
+    getRecordCount(): Promise<number>;
 }

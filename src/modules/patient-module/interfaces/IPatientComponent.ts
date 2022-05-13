@@ -8,4 +8,5 @@ export interface IPatientComponent {
     updatePatient(patientid: string, updatePatient: Partial<Patient>): Promise<void>; 
     createPatient(patient: PatientCreation): Promise<Patient>;
     searchPatients(query: SearchQuery): Promise<Patient[]>;
+    getNumberOfRecord(): Promise<number>;
 }

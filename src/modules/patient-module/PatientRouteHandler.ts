@@ -100,8 +100,9 @@ export class PatientRouteHandler {
             }
             const params = getSearchQuery(req);
             const patients = await PatientComponent.getInstance().searchPatients(params);
+            const recordCount = await PatientComponent.getInstance().getNumberOfRecord();
 
-            res.json(patients);
+            res.json({patients, recordCount});
         } catch (err) {
             next(err);
         }
