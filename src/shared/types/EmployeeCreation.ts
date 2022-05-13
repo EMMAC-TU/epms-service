@@ -5,7 +5,7 @@ export type EmployeeCreation = {
     middleinitial?: string;
     lastname: string;
     gender: string;
-    dateofbirth: string;
+    dateofbirth: Date | string;
     email?: string;
     position: string;
     streetname1?: string,

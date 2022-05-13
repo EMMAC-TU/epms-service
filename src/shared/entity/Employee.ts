@@ -18,7 +18,7 @@ export class Employee implements IEmployee {
     streetname2?: string;
     employeeid?: string;
     password?: string;
-    dateofbirth?: string;
+    dateofbirth?: Date | string;
     homephone?: string;
     mobilephone?: string;
     workphone?: string;

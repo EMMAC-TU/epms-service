@@ -37,7 +37,7 @@ export interface IEmployee {
     /**
      * 
      */
-    dateofbirth?: string;
+    dateofbirth?: Date | string;
 
     /**
      * 
