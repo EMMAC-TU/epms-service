@@ -39,8 +39,9 @@ export class EmployeeRouteHandler {
             }
             const params = getSearchQuery(req);
             const employees = await EmployeeComponent.getInstance().findEmployees(params);
+            const count = await EmployeeComponent.getInstance().getRecordCount();
 
-            res.json({ employees });
+            res.json({ employees, count });
         } catch (err) {
             next(err);
         }

@@ -120,6 +120,10 @@ export class EmployeeComponent implements IEmployeeComponent{
         return await EmployeeDatastore.getInstance().searchEmployees(query);
     }
 
+    async getRecordCount(): Promise<number> {
+        return Number((await EmployeeDatastore.getInstance().getRecordCount()).count)
+    }
+
     /**
      * 
      * @param newEmp 

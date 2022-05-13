@@ -182,3 +182,7 @@ export function buildUpdatePasswordQuery(employeeid: string, password: string): 
         values: [password, employeeid]
     };
 }
+
+export function buildCountQuery(table: 'employee' | 'patient') {
+    return `SELECT count(*) from ${table}`;
+}

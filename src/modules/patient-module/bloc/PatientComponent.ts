@@ -83,6 +83,10 @@ export class PatientComponent implements IPatientComponent {
         return await PatientDatastore.getInstance().searchPatients(query);
     }
 
+    async getNumberOfRecord(): Promise<number> {
+        return Number((await PatientDatastore.getInstance().getRecordCount()).count);
+    }
+
     private isMissingRequiredFields(patient: PatientCreation) {
         return !(
             patient.dateofbirth && 

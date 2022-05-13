@@ -40,4 +40,6 @@ export interface IEmployeeDatastore {
      * @param query 
      */
     searchEmployees(query: SearchQuery): Promise<Employee[]>
+
+    getRecordCount(): Promise<any>;
 }
