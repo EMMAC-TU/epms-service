@@ -126,7 +126,7 @@ export function buildSearchQuery(query: SearchQuery, table: 'employee' | 'patien
         index ++;
     }
     if (query.lastname) {
-        whereClauses.push(`lastname LIKE $${index}`);
+        whereClauses.push(`LOWER(lastname) LIKE LOWER($${index})`);
         vals.push(query.lastname+'%');
         index ++;
     }

@@ -46,7 +46,7 @@ export class EmployeeComponent implements IEmployeeComponent{
         if (emp.length == 0) {
             throw new ResourceError("Employee Not Found", ResourceErrorReason.NOT_FOUND);
         }
-        return emp[0] as Employee
+        return emp[0];
     }
 
     /**
