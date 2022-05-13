@@ -162,6 +162,7 @@ Examples:
 
 Request body is not required for this route
 
+Response: 
 ```
 {
     employees: [
@@ -171,7 +172,8 @@ Request body is not required for this route
             dateofbirth: date
         },
         ...
-    ]
+    ],
+    count: number
 }
 ```
 
@@ -316,7 +318,8 @@ Response:
             dateofbirth: date
         },
         ...
-    ]
+    ],
+    count: number
 }
 ```
 
