@@ -24,9 +24,16 @@ const POSITIONS = {
     ACCOUNTANT: 'accountant'
 };
 
+/**
+ * Employee Component handles all business logic for the Employee Module
+ */
 export class EmployeeComponent implements IEmployeeComponent{
     private static instance: IEmployeeComponent;
 
+    /**
+     * Gets the instance of the employee component
+     * @returns The instance of an EmployeeComponent
+     */
     public static getInstance(): IEmployeeComponent {
         if (!this.instance) {
             this.instance = new EmployeeComponent();
@@ -35,8 +42,8 @@ export class EmployeeComponent implements IEmployeeComponent{
     }
 
     /**
-     * 
-     * @param employeeID 
+     * Gets an employee by employee id 
+     * @param employeeID employee id of the employee to get
      */
     async getEmployee(employeeID: string): Promise<Employee> {
         if(!isValidUUID(employeeID)) {
@@ -50,16 +57,16 @@ export class EmployeeComponent implements IEmployeeComponent{
     }
 
     /**
-     * 
-     * @returns 
+     * Get all employees
+     * @returns An array of employees
      */
     async getEmployees(): Promise<Employee[]> {
         return await EmployeeDatastore.getInstance().getEmployees();
     }
 
     /**
-     * 
-     * @param newEmployee 
+     * Creates a new Employee 
+     * @param newEmployee The new employee
      */
     async createEmployee(newEmployee: EmployeeCreation): Promise<Employee> {
         if (this.isMissingRequiredFields(newEmployee)) {
@@ -85,9 +92,9 @@ export class EmployeeComponent implements IEmployeeComponent{
     }
 
     /**
-     * 
-     * @param employeeId 
-     * @param updatedEmployee 
+     * Updates an employee
+     * @param employeeId The id of the employee to be updated
+     * @param updatedEmployee Partial employee object that contains the fields to update
      */
     async updateEmployee(employeeId: string, updatedEmployee: Partial<Employee>): Promise<void> {
         if (!(await EmployeeDatastore.getInstance().doesEmployeeExist({ field: 'employeeid', value: employeeId }))) {
@@ -110,8 +117,8 @@ export class EmployeeComponent implements IEmployeeComponent{
     }
 
     /**
-     * 
-     * @param query 
+     * Finds employees based on a search query
+     * @param query An array of employees 
      */
     async findEmployees(query: SearchQuery): Promise<{ employees: any[], count: number}> {
         if (query.employeeid && !isValidUUID(query.employeeid)) {
@@ -121,9 +128,9 @@ export class EmployeeComponent implements IEmployeeComponent{
     }
 
     /**
-     * 
-     * @param newEmp 
-     * @returns 
+     * Checks to see if the required fields are given
+     * @param newEmp The new employee
+     * @returns True if all required fields are applied, false otherwised
      */
     private isMissingRequiredFields(newEmp: EmployeeCreation) {
         return !(
@@ -137,8 +144,8 @@ export class EmployeeComponent implements IEmployeeComponent{
 
 
     /**
-     * 
-     * @param newEmp 
+     * Validates the input of a new employee 
+     * @param newEmp The new employee
      */
     private validateInput(newEmp: EmployeeCreation) {
         validatePasswordCriteria(newEmp.password);

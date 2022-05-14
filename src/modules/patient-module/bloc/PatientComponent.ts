@@ -6,6 +6,9 @@ import { PatientDatastore } from "../datastore/PatientDatastore";
 import { IPatientComponent } from "../interfaces/IPatientComponent";
 import { verifyUpdateFields, validatePhoneNumbers, validateEmailCriteria, isValidUUID, validateGender } from "../../../shared/functions/validator";
 
+/**
+ * The Patient Component of the Patient Module
+ */
 export class PatientComponent implements IPatientComponent {
     private static instance: IPatientComponent;
 
@@ -18,7 +21,7 @@ export class PatientComponent implements IPatientComponent {
     }
 
     /**
-     * 
+     * Gets all patients in the database
      * @returns 
      */
     async getPatients(): Promise<Patient[]> {
@@ -26,9 +29,9 @@ export class PatientComponent implements IPatientComponent {
     }
 
     /**
-     * 
-     * @param patientid 
-     * @returns 
+     * Get a patient by their id
+     * @param patientid The id of a patient to get
+     * @returns A patient record if it exists
      */
     async getAPatient(patientid: string): Promise<Patient> {
         if(!isValidUUID(patientid)) {
@@ -42,9 +45,9 @@ export class PatientComponent implements IPatientComponent {
     }
 
     /**
-     * 
-     * @param patientid 
-     * @param updatePatient 
+     * Update a patient
+     * @param patientid Id of patient to update 
+     * @param updatePatient Partial Employee that contains all updated fields
      */
     async updatePatient(patientid: string, updatePatient: Partial<Patient>): Promise<void> {
         if(!(await PatientDatastore.getInstance().doesPatientExist({ field: 'patientid', value: patientid }))) {
@@ -55,8 +58,8 @@ export class PatientComponent implements IPatientComponent {
     }
 
     /**
-     * 
-     * @param patient 
+     * Creates a new patient
+     * @param patient The new patient
      */
     async createPatient(patient: PatientCreation): Promise<Patient> {
         if (this.isMissingRequiredFields(patient)) {
@@ -73,8 +76,8 @@ export class PatientComponent implements IPatientComponent {
     }
 
     /**
-     * 
-     * @param query 
+     * Search for patients based on a query
+     * @param query The query to search for patients
      */
     async searchPatients(query: SearchQuery): Promise<{ patients: any[], count: number}> {
         if (query.patientid && !isValidUUID(query.patientid)) {
@@ -83,6 +86,11 @@ export class PatientComponent implements IPatientComponent {
         return await PatientDatastore.getInstance().searchPatients(query);
     }
 
+    /**
+     * Checks to see if the required fields are in a new patient document
+     * @param patient The patient 
+     * @returns True if the new patient has the required fields, false otherwise
+     */
     private isMissingRequiredFields(patient: PatientCreation) {
         return !(
             patient.dateofbirth && 
@@ -90,6 +98,10 @@ export class PatientComponent implements IPatientComponent {
             patient.lastname )
     }
 
+    /**
+     * Validates the patient fields
+     * @param newPatient The new patient 
+     */
     private validateInput(newPatient: PatientCreation) {
         validatePhoneNumbers(newPatient);
         validateEmailCriteria(newPatient.email);

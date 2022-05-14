@@ -1,18 +1,23 @@
 import { ResourceError, ResourceErrorReason } from "../../../shared/types/Errors";
 import { BcryptDriver } from "../../../drivers/BcryptDriver";
-import { Employee } from "../../../shared/entity/Employee";
 import { AuthDatastore } from "../datastore/AuthDatastore";
 import { IAuthComponent } from "../interfaces/IAuthComponent";
 import { generateToken } from "./functions/GenerateToken";
-import { IEmployee } from "../../../shared/interfaces/IEmployee";
 import { EmployeeDatastore } from "../../../modules/employee-module/datastore/EmployeeDatastore";
 import { validatePasswordCriteria } from "../../../shared/functions/validator";
 import { Token } from "../../../shared/types/Token";
 
+/**
+ * Authorization and Authentication Component For the Employee Patient Managament System
+ */
 export class AuthComponent implements IAuthComponent {
     private static instance: IAuthComponent;
     private bcrypt: BcryptDriver = new BcryptDriver();
 
+    /**
+     * Gets an instance of the Authcomponent
+     * @returns A singleton instance of the AuthComponent
+     */
     public static getInstance() {
         if (!this.instance) {
             this.instance = new AuthComponent();
@@ -21,9 +26,9 @@ export class AuthComponent implements IAuthComponent {
     }
     
     /**
-     * 
-     * @param employeeId 
-     * @param password 
+     * Checks to see if the password given, matches the password saved in the database
+     * @param employeeId The id of an employee
+     * @param password The password to test
      */
     async doPasswordsMatch(employeeId: string, password: string): Promise<boolean> {
         if ( !(await EmployeeDatastore.getInstance().doesEmployeeExist({ field: 'employeeid', value: employeeId }))) {
@@ -34,9 +39,9 @@ export class AuthComponent implements IAuthComponent {
     }
 
     /**
-     * 
-     * @param employeeId 
-     * @param password 
+     * Updates a password of a user
+     * @param employeeId The id of the employee who's password will change
+     * @param password The new Password
      */
     async updatePassword(employeeId: string, password: string): Promise<void> {
         if ( !(await EmployeeDatastore.getInstance().doesEmployeeExist({ field: 'employeeid', value: employeeId }))) {
@@ -48,9 +53,9 @@ export class AuthComponent implements IAuthComponent {
     }
     
     /**
-     * 
-     * @param userId 
-     * @param password 
+     * Log a user in
+     * @param userId The userid of the user 
+     * @param password The password of the user
      */
     async login(userId: string, password: string): Promise<string> {
         const employee = await AuthDatastore.getInstance().login(userId.toLowerCase());
@@ -69,10 +74,10 @@ export class AuthComponent implements IAuthComponent {
     }
 
     /**
-     * 
-     * @param auths 
-     * @param token 
-     * @returns 
+     * Check to see if a user is authorized
+     * @param auths Permissions that a user should have to be authorized
+     * @param token The JWT that contains the permission levels of the user
+     * @returns True if the user is authorized, false otherwise
      */
     isAuthorized(auths: string[], token: Token): Boolean {
         let isAuthorized = false;

@@ -17,6 +17,11 @@ const patientReturns = {
     nok_firstname, nok_lastname, nok_mobilephone, insurance_companyname, insurance_memberid, insurance_groupnumber"
 };
 
+/**
+ * Builds the login query
+ * @param userid the id of a user
+ * @returns the query for logging in
+ */
 export function buildLoginQuery(userid: string) {
     return { 
         text: `SELECT employeeid, position, password FROM employee WHERE userid=$1`,
@@ -24,6 +29,12 @@ export function buildLoginQuery(userid: string) {
     }
 }
 
+/**
+ * Builds the get query
+ * @param table The table to access
+ * @param id The id of the patient or employee
+ * @returns the query
+ */
 export function buildGetEntityQuery(table: 'patient' | 'employee', id?: string){
     let query = [
         `SELECT 
@@ -38,7 +49,13 @@ export function buildGetEntityQuery(table: 'patient' | 'employee', id?: string){
     return { text: query.join(' '), values: val };
 }
 
-
+/**
+ * Builds the update entity query
+ * @param table The table to access
+ * @param id the id of the patient of employee
+ * @param partialEnity the partial employee or patient
+ * @returns the query
+ */
 export function buildUpdateEntityQuery(table: string, id: string, partialEnity: Partial<Employee> | Partial<Patient>): { text: string, values: any[] }{
     // Setup static beginning of query
     var query = [`UPDATE ${table}`];
@@ -66,9 +83,9 @@ export function buildUpdateEntityQuery(table: string, id: string, partialEnity: 
 }
 
 /**
- * 
- * @param entity 
- * @returns 
+ * Builds the create entity query
+ * @param entity The entity to create
+ * @returns the query
  */
 export function buildCreateQuery(entity?: Employee | Patient): { text: string, values: string[] } {
     let table = "";
@@ -99,6 +116,12 @@ export function buildCreateQuery(entity?: Employee | Patient): { text: string, v
     return queryobj
 }
 
+/**
+ * Builds the search query
+ * @param query the search query
+ * @param table the table to access
+ * @returns two queries, one for the search, one for the count
+ */
 export function buildSearchQuery(query: SearchQuery, table: 'employee' | 'patient'): {
     searchQuery: { text: string, values: string[] },
     countQuery: { text: string, values: string[] }
@@ -184,6 +207,12 @@ export function buildSearchQuery(query: SearchQuery, table: 'employee' | 'patien
     return { searchQuery, countQuery };
 }
 
+/**
+ * Builds Does Field Exists query
+ * @param table The table to access
+ * @param query the query
+ * @returns A query
+ */
 export function buildDoesFieldExistQuery(table: 'employee' | 'patient', query: {
     field: 'employeeid' | 'patientid' | 'userid' | 'email',
     value: string
@@ -201,10 +230,21 @@ export function buildDoesFieldExistQuery(table: 'employee' | 'patient', query: {
     return { text: buildquery.join(' '), values: [query.value]} ;
 }
 
+/**
+ * Builds the get password query
+ * @param employeeid The employee id
+ * @returns Password query
+ */
 export function buildPasswordQuery(employeeid: string): { text: string, values: string[] } {
     return { text: 'SELECT password FROM employee WHERE employeeid=$1', values: [employeeid] }
 }
 
+/**
+ * Builds the update password query
+ * @param employeeid The employee id
+ * @param password The password
+ * @returns The password query
+ */
 export function buildUpdatePasswordQuery(employeeid: string, password: string): { text: string, values: string[] }{
     return {
         text: `UPDATE employee

@@ -40,6 +40,10 @@ export function validateEmailCriteria(email: string): void{
     } 
 }
 
+/**
+ * Validate the phonenumbers of an entity
+ * @param entity The entity to check
+ */
 export function validatePhoneNumbers(entity: EmployeeCreation | PatientCreation) {
   if(entity.homephone && !entity.homephone.match(/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im)){
     throw new ResourceError("Home phone number is not formatted correctly", ResourceErrorReason.BAD_REQUEST);
@@ -52,12 +56,17 @@ export function validatePhoneNumbers(entity: EmployeeCreation | PatientCreation)
   }
 }
 
+/**
+ * Validates an UUID
+ * @param id The id to match
+ * @returns True if it matches, false otherwise
+ */
 export function isValidUUID(id: string) {
   return id.match(/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i);
 }
 
 /**
- * 
+ * Verify update fields
  * @param entity 
  */
 export function verifyUpdateFields(entity: Partial<Employee> | Partial<Patient> , cantUpdateFields: string[]) {
@@ -68,6 +77,11 @@ export function verifyUpdateFields(entity: Partial<Employee> | Partial<Patient> 
   });
 }
 
+/**
+ * Removes undefined and null fields
+ * @param entity 
+ * @returns a new object with no undefined or null fields
+ */
 export function validateUndefinedNullFields(entity: EmployeeCreation | PatientCreation) {
   let obj: any = {};
   Object.entries(entity).forEach((val) => {
@@ -79,6 +93,11 @@ export function validateUndefinedNullFields(entity: EmployeeCreation | PatientCr
   return obj;
 }
 
+/**
+ * Validates the gender
+ * @param entity 
+ * @returns 
+ */
 export function validateGender(entity: EmployeeCreation | PatientCreation | Employee | Patient) {
   if (!entity.gender) return;
   switch (entity.gender.toLowerCase()) {
