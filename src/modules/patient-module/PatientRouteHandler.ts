@@ -99,10 +99,9 @@ export class PatientRouteHandler {
                 throw new ResourceError("Query not provided", ResourceErrorReason.INTERNAL_SERVER_ERROR);
             }
             const params = getSearchQuery(req);
-            const patients = await PatientComponent.getInstance().searchPatients(params);
-            const recordCount = await PatientComponent.getInstance().getNumberOfRecord();
+            const { patients, count } = await PatientComponent.getInstance().searchPatients(params);
 
-            res.json({patients, recordCount});
+            res.json({patients, count});
         } catch (err) {
             next(err);
         }

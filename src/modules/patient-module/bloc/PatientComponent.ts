@@ -76,15 +76,11 @@ export class PatientComponent implements IPatientComponent {
      * 
      * @param query 
      */
-    async searchPatients(query: SearchQuery): Promise<Patient[]> {
+    async searchPatients(query: SearchQuery): Promise<{ patients: any[], count: number}> {
         if (query.patientid && !isValidUUID(query.patientid)) {
-            return [];
+            return { patients: [], count: 0 }
         }
         return await PatientDatastore.getInstance().searchPatients(query);
-    }
-
-    async getNumberOfRecord(): Promise<number> {
-        return Number((await PatientDatastore.getInstance().getRecordCount()).count);
     }
 
     private isMissingRequiredFields(patient: PatientCreation) {

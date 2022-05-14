@@ -1,8 +1,7 @@
 import { Patient } from "../../../shared/entity/Patient";
 import { SearchQuery } from "./../../../shared/types/SearchQuery";
 import { IPatientDatastore } from "../interfaces/IPatientDatastore";
-import {
-    buildCountQuery, 
+import { 
     buildCreateQuery, 
     buildDoesFieldExistQuery, 
     buildGetEntityQuery, 
@@ -86,18 +85,19 @@ export class PatientDatastore implements IPatientDatastore {
      * 
      * @param query 
      */
-    async searchPatients(query: SearchQuery): Promise<Patient[]> {
-        const builtQuery = buildSearchQuery(query, 'patient');
-        console.log(query);
+    async searchPatients(query: SearchQuery): Promise<{ patients: any[], count: number}> {
+        const { searchQuery, countQuery } = buildSearchQuery(query, 'patient');
 
-        const { rows } = await this.client.query(builtQuery);
-        return rows;
+        const { rows } = await this.client.query(searchQuery);
+        const count = await this.countQuery(countQuery);
+
+        return { patients: rows, count };
     }
 
-    async getRecordCount() {
-        const query =  buildCountQuery('patient');
-        const { rows } = await this.client.query(query);
-        return rows[0];
+    private async countQuery(countQuery: { text: string, values: string[] }): Promise<number> {
+        const { rows } = await this.client.query(countQuery);
+        return Number(rows[0].count);
     }
+
     
 }

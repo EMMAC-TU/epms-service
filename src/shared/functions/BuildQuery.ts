@@ -99,7 +99,11 @@ export function buildCreateQuery(entity?: Employee | Patient): { text: string, v
     return queryobj
 }
 
-export function buildSearchQuery(query: SearchQuery, table: 'employee' | 'patient'): { text: string, values: string[] }{
+export function buildSearchQuery(query: SearchQuery, table: 'employee' | 'patient'): {
+    searchQuery: { text: string, values: string[] },
+    countQuery: { text: string, values: string[] }
+}{
+    
     let buildquery = [
         `SELECT 
         ${table === 'employee' ? employeeReturns.searchResults : patientReturns.searchResults} 
@@ -107,31 +111,52 @@ export function buildSearchQuery(query: SearchQuery, table: 'employee' | 'patien
         'WHERE'
     ];
 
+    let buildCount = [
+        `SELECT count(*) FROM ${table}`,
+        'WHERE'
+    ]
+
     let index = 1;
     const whereClauses: string[] = [];
     const vals: any[] = []; 
+    const countVals: any[] = []; 
+
     if (query.patientid) {
         whereClauses.push(`patientid=$${index}`);
         vals.push(query.patientid);
+        countVals.push(query.patientid);
+
         index ++;
     }
     if (query.employeeid) {
         whereClauses.push(`employeeid=$${index}`);
         vals.push(query.employeeid);
+        countVals.push(query.employeeid);
+
         index ++;
     }
     if (query.dateofbirth) {
         whereClauses.push(`dateofbirth=$${index}`);
         vals.push(query.dateofbirth);
+        countVals.push(query.dateofbirth);
+
         index ++;
     }
     if (query.lastname) {
         whereClauses.push(`LOWER(lastname) LIKE LOWER($${index})`);
         vals.push(query.lastname+'%');
+        countVals.push(query.lastname+'%');
+
         index ++;
     }
-    if (whereClauses.length === 0) buildquery.pop();
+    if (whereClauses.length === 0){
+        buildquery.pop();
+        buildCount.pop();
+    } 
+
+
     buildquery.push(whereClauses.join(' or '));
+    buildCount.push(whereClauses.join(' or '));
 
     // Add Sort
     if (query.sort && query.sort === -1) buildquery.push('ORDER BY lastname DESC');
@@ -145,12 +170,18 @@ export function buildSearchQuery(query: SearchQuery, table: 'employee' | 'patien
     // Add offset --> Page starts at one but offset needs to be 0 to start
     buildquery.push(`OFFSET ${query.limit*(query.page-1)}`); 
 
-    const q = {
+    const searchQuery = {
         text: buildquery.join(' '),
         values: vals
     }
 
-    return q;
+    const countQuery = {
+        text: buildCount.join(' '),
+        values: countVals
+    }
+
+    console.log(countQuery)
+    return { searchQuery, countQuery };
 }
 
 export function buildDoesFieldExistQuery(table: 'employee' | 'patient', query: {
@@ -181,8 +212,4 @@ export function buildUpdatePasswordQuery(employeeid: string, password: string): 
                 WHERE employeeid=$2`,
         values: [password, employeeid]
     };
-}
-
-export function buildCountQuery(table: 'employee' | 'patient') {
-    return `SELECT count(*) from ${table}`;
 }
