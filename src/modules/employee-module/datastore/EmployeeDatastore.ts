@@ -2,7 +2,7 @@ import { SearchQuery } from "../../../shared/types/SearchQuery";
 import { PostgresDriver } from "../../../drivers/PostgresDriver";
 import { Employee } from "../../../shared/entity/Employee";
 import { IEmployeeDatastore } from "../interfaces/IEmployeeDatastore";
-import { buildCountQuery, buildCreateQuery, buildDoesFieldExistQuery, buildGetEntityQuery, buildSearchQuery, buildUpdateEntityQuery } from "../../../shared/functions/BuildQuery";
+import { buildCreateQuery, buildDoesFieldExistQuery, buildGetEntityQuery, buildSearchQuery, buildUpdateEntityQuery } from "../../../shared/functions/BuildQuery";
 
 export class EmployeeDatastore implements IEmployeeDatastore {
     private client = PostgresDriver.client
@@ -83,19 +83,19 @@ export class EmployeeDatastore implements IEmployeeDatastore {
      * 
      * @param searchQuery 
      */
-    async searchEmployees(searchQuery: SearchQuery): Promise<Employee[]> {
-        const query = buildSearchQuery(searchQuery,  'employee');
-        console.log(query);
+    async searchEmployees(searchQ: SearchQuery): Promise<{ employees: any[], count: number}> {
+        const { searchQuery, countQuery } = buildSearchQuery(searchQ,  'employee');
+        console.log(searchQuery);
 
-        const { rows } = await this.client.query(query);
-        console.log(rows);
-        return rows;
+        const { rows } = await this.client.query(searchQuery);
+        const count = await this.countQuery(countQuery);
+        
+        return { employees: rows, count };
     }
 
-    async getRecordCount(): Promise<any> {
-        const query = buildCountQuery('employee');
-        const { rows } = await this.client.query(query);
-        return rows[0];
+    private async countQuery(countQuery: { text: string, values: string[] }): Promise<number> {
+        const { rows } = await this.client.query(countQuery);
+        return Number(rows[0].count);
     }
 
 }

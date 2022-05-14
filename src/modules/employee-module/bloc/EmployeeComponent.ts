@@ -113,15 +113,11 @@ export class EmployeeComponent implements IEmployeeComponent{
      * 
      * @param query 
      */
-    async findEmployees(query: SearchQuery): Promise<Employee[]> {
+    async findEmployees(query: SearchQuery): Promise<{ employees: any[], count: number}> {
         if (query.employeeid && !isValidUUID(query.employeeid)) {
-            return [];
+            return { employees: [], count: 0 };
         }
         return await EmployeeDatastore.getInstance().searchEmployees(query);
-    }
-
-    async getRecordCount(): Promise<number> {
-        return Number((await EmployeeDatastore.getInstance().getRecordCount()).count)
     }
 
     /**

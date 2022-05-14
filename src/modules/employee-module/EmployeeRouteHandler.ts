@@ -38,8 +38,7 @@ export class EmployeeRouteHandler {
                 throw new ResourceError("Query not provided", ResourceErrorReason.INTERNAL_SERVER_ERROR);
             }
             const params = getSearchQuery(req);
-            const employees = await EmployeeComponent.getInstance().findEmployees(params);
-            const count = await EmployeeComponent.getInstance().getRecordCount();
+            const { employees, count } = await EmployeeComponent.getInstance().findEmployees(params);
 
             res.json({ employees, count });
         } catch (err) {

@@ -39,7 +39,6 @@ export interface IEmployeeDatastore {
      * 
      * @param query 
      */
-    searchEmployees(query: SearchQuery): Promise<Employee[]>
+    searchEmployees(query: SearchQuery): Promise<{ employees: any[], count: number}>
 
-    getRecordCount(): Promise<any>;
 }

@@ -27,7 +27,6 @@ export interface IEmployeeComponent {
      * 
      * @param query 
      */
-    findEmployees(query: SearchQuery): Promise<Employee[]>;
+    findEmployees(query: SearchQuery): Promise<{ employees: any[], count: number}>;
 
-    getRecordCount(): Promise<number>;
 }

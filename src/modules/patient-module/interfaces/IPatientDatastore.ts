@@ -15,7 +15,5 @@ export interface IPatientDatastore {
 
     createPatient(newPatient: Patient): Promise<void>;
 
-    searchPatients(query: SearchQuery): Promise<Patient[]>;
-
-    getRecordCount(): Promise<any>;
+    searchPatients(query: SearchQuery): Promise<{ patients: any[], count: number}>;
 }
