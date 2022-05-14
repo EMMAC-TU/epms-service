@@ -9,6 +9,12 @@ export interface AuthParams {
     next?: NextFunction;
     permissions: string[];
 }
+
+/**
+ * Authorize decorator that determines if a user is authorized
+ * @param auth An array of permissions
+ * @returns 
+ */
 export function Authorized(auth?: AuthParams) {
     return function (target: any, name: any, descriptor: any) {
         const original = descriptor.value;
@@ -49,6 +55,13 @@ export function Authorized(auth?: AuthParams) {
     }
 }
 
+/**
+ * Checks to see if the user is authorized
+ * @param perimssions The permissions
+ * @param token Token of the user
+ * @param req 
+ * @returns True if the user is authorized, false otherwise
+ */
 function checkPermissions(perimssions: string[], token: Token, req?: Request) {
     let isAuthorized = false;
     perimssions.forEach((value) => {

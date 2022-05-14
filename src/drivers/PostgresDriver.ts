@@ -3,8 +3,9 @@ import * as dotenv from 'dotenv';
 import { ServiceError, ServiceErrorReason } from '../shared/types/Errors';
 
 dotenv.config()
+
 /**
- * 
+ * The driver for the postgres object 
  */
 export class PostgresDriver {
     private static _client: Client;
@@ -12,7 +13,7 @@ export class PostgresDriver {
     private constructor() {}
 
     /**
-     * 
+     * Connects to the postgres database
      */
     public static async connect(): Promise<void> {
         try {
@@ -26,7 +27,7 @@ export class PostgresDriver {
     }
 
     /**
-     * 
+     * Disconnects from the database
      */
     public static async disconnect(): Promise<void> {
         if (this._client) {
@@ -35,7 +36,7 @@ export class PostgresDriver {
     }
 
     /**
-     * 
+     * Gets the client
      */
     static get client(): Client {
         if (!this._client) {

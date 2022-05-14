@@ -1,6 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 import { ResourceErrorReason, ServiceErrorReason } from "../shared/types/Errors";
 
+/**
+ * Creates the Error Response
+ * @param err The error object 
+ * @param req Express Request object
+ * @param res Express Response object
+ * @param next Express NextFunction
+ */
 export function HttpErrorParser(
     err: any,
     req?: Request,

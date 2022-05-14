@@ -47,6 +47,7 @@ Deployed Link: https://epms-service-api-q8l3e.ondigitalocean.app/
 The Auth module handles the following actions:
 - Logging in
 - Changing password
+- Is Authorized
 
 The routes:
 
@@ -54,6 +55,7 @@ The routes:
 | ---- | ----- | ----------- |
 | PATCH  | /auth/password | Change the password of a user |
 | POST | /auth/login | Log a user of the system in |
+| POST | /auth | Checks to see if a user is authorized |
 
 ### PATCH /auth/password
 ```

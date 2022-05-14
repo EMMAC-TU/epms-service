@@ -7,6 +7,9 @@ import { Patient } from "../../shared/entity/Patient";
 import { Authorized } from "../../shared/decorators/Authorize";
 import { PermissionLevels } from "../../shared/types/PermissionLevels";
 
+/**
+ * Route Handler for the Patient Module
+ */
 export class PatientRouteHandler {
     public static buildRouter() {
         const router = Router();

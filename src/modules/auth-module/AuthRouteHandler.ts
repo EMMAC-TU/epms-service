@@ -6,6 +6,9 @@ import { ResourceError } from "../../shared/types/Errors";
 import { AuthComponent } from "./bloc/AuthComponent";
 import { PermissionLevels } from "../../shared/types/PermissionLevels";
 
+/**
+ * Route handler for the Authorization and Authentication Module
+ */
 export class AuthRouteHandler {
     public static buildRouter() {
         const router = Router();

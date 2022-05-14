@@ -2,6 +2,11 @@ import { Request } from "express";
 import { SearchQuery } from "../types/SearchQuery";
 import { isNullEmptyUndefined } from "./validator";
 
+/**
+ * Gets the search Query from the request object
+ * @param req Express Request Object
+ * @returns The search query
+ */
 export function getSearchQuery(req: Request): SearchQuery{
     const params: SearchQuery = { page: 1, limit: 20, filter: {} };
 

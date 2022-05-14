@@ -9,13 +9,13 @@ import { Authorized } from "../../shared/decorators/Authorize";
 import { PermissionLevels } from "../../shared/types/PermissionLevels";
 
 /**
- * 
+ * Route handler for the employee module
  */
 export class EmployeeRouteHandler {
 
     /**
-     * 
-     * @returns 
+     * Builds the router for the employee module
+     * @returns A router
      */
     public static buildRouter() {
         const router = Router();
