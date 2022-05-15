@@ -75,11 +75,12 @@ export class EmployeeComponent implements IEmployeeComponent{
         if (await EmployeeDatastore.getInstance().doesEmployeeExist({ field: 'userid', value: newEmployee.userid })) {
             throw new ResourceError("Username already exists", ResourceErrorReason.BAD_REQUEST);
         }
-        if (await EmployeeDatastore.getInstance().doesEmployeeExist({ field: 'email', value: newEmployee.email.toLowerCase() })) {
+        if (await EmployeeDatastore.getInstance().doesEmployeeExist({ field: 'email', value: newEmployee.email })) {
             throw new ResourceError("Email already exists", ResourceErrorReason.BAD_REQUEST);
         }
 
-        this.validateInput(newEmployee);
+        newEmployee = this.validateInput(newEmployee);
+        
         const hasher = new BcryptDriver();
         newEmployee.password =  await hasher.saltPassword(newEmployee.password);
         const employee = new Employee(newEmployee);
@@ -172,7 +173,7 @@ export class EmployeeComponent implements IEmployeeComponent{
         // Match Gender
         validateGender(newEmp);
         
-        return true
+        return newEmp
     }
 
     

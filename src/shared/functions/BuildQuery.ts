@@ -25,7 +25,7 @@ const patientReturns = {
 export function buildLoginQuery(userid: string) {
     return { 
         text: `SELECT employeeid, position, password FROM employee WHERE userid=$1`,
-        values: [userid]
+        values: [userid.toLowerCase()]
     }
 }
 
@@ -227,7 +227,7 @@ export function buildDoesFieldExistQuery(table: 'employee' | 'patient', query: {
     buildquery.push(`FROM ${table}`);
     buildquery.push('WHERE');
     buildquery.push(`${query.field}=$1`);
-    return { text: buildquery.join(' '), values: [query.value]} ;
+    return { text: buildquery.join(' '), values: [query.value.toLowerCase()]} ;
 }
 
 /**
