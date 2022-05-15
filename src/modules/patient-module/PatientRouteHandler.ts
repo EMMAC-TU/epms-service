@@ -73,7 +73,7 @@ export class PatientRouteHandler {
     @Authorized({
         permissions: [
             PermissionLevels.ADMIN,
-            PermissionLevels.NURSE
+            PermissionLevels.RECEPTIONIST
         ]
     })
     static async createPatient(req: Request, res: Response, next: NextFunction) {
