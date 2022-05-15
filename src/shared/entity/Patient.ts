@@ -41,7 +41,7 @@ export class Patient implements IPatient {
         this.outpatient = true; // Change this to patientForm.outpatient when inpatient is a thing
         this.creationdate = new Date();
         this.middleinitial = patientForm.middleinitial;
-        this.email = patientForm.email;
+        this.email = patientForm.email.toLowerCase();
         this.homephone = patientForm.homephone;
         this.mobilephone = patientForm.mobilephone;
         this.workphone = patientForm.workphone;
