@@ -26,7 +26,7 @@ export class Employee implements IEmployee {
     enddate?: string;
     
     constructor(info: EmployeeCreation) {
-        this.userid = info.userid;
+        this.userid = info.userid.toLowerCase();
         this.password = info.password; 
         this.firstname = info.firstname;
         this.lastname = info.lastname;
