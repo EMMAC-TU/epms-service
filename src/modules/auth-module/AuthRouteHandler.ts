@@ -60,7 +60,7 @@ export class AuthRouteHandler {
                 throw new ResourceError('New Password was not provided', ResourceErrorReason.BAD_REQUEST);
             }
             if (!isAdminUpdatingPassword && !curr_password) {
-                throw new ResourceError('Password was not Provided', ResourceErrorReason.BAD_REQUEST);
+                throw new ResourceError('Password was not provided', ResourceErrorReason.BAD_REQUEST);
             }
 
             if (!isAdminUpdatingPassword){
