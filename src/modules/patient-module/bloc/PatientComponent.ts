@@ -35,11 +35,11 @@ export class PatientComponent implements IPatientComponent {
      */
     async getAPatient(patientid: string): Promise<Patient> {
         if(!isValidUUID(patientid)) {
-            throw new ResourceError("Employee Id is not valid", ResourceErrorReason.BAD_REQUEST);
+            throw new ResourceError("Patient ID is not valid", ResourceErrorReason.BAD_REQUEST);
         }
         const patient = await PatientDatastore.getInstance().getAPatient(patientid);
         if (patient.length === 0) {
-            throw new ResourceError('Patient Does not exist', ResourceErrorReason.NOT_FOUND);
+            throw new ResourceError('Patient does not exist', ResourceErrorReason.NOT_FOUND);
         }
         return patient[0] as Patient;
     }

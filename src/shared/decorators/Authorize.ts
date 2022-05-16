@@ -38,7 +38,7 @@ export function Authorized(auth?: AuthParams) {
                 if (!auth) request.body.token = decoded;
 
                 if (auth && !checkPermissions(auth.permissions, decoded, request)) {
-                    throw new ResourceError("Not Authorized To Perform This Task", ResourceErrorReason.INVALID_ACCESS);
+                    throw new ResourceError("Not Authorized", ResourceErrorReason.INVALID_ACCESS);
                 }
                 
                 return original.apply(this, args);

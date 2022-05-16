@@ -35,7 +35,7 @@ export class PatientRouteHandler {
         try {
             const patientid = req.params.id;
             if(!patientid) {
-                throw new ResourceError('Patient id was not provided', ResourceErrorReason.BAD_REQUEST);
+                throw new ResourceError('Patient ID was not provided', ResourceErrorReason.BAD_REQUEST);
             }   
 
             const patient = req.body as Partial<Patient>;
@@ -61,7 +61,7 @@ export class PatientRouteHandler {
         try {
             const patientid = req.params.id;
             if(!patientid) {
-                throw new ResourceError("Patient Id was not provided", ResourceErrorReason.BAD_REQUEST);
+                throw new ResourceError("Patient ID was not provided", ResourceErrorReason.BAD_REQUEST);
             }
             const patient = await PatientComponent.getInstance().getAPatient(patientid);
             res.json(patient);

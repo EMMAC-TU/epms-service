@@ -47,7 +47,7 @@ export class EmployeeComponent implements IEmployeeComponent{
      */
     async getEmployee(employeeID: string): Promise<Employee> {
         if(!isValidUUID(employeeID)) {
-            throw new ResourceError("Employee Id is not valid", ResourceErrorReason.BAD_REQUEST);
+            throw new ResourceError("Employee ID is not valid", ResourceErrorReason.BAD_REQUEST);
         }
         const emp = await EmployeeDatastore.getInstance().getEmployee(employeeID);
         if (emp.length == 0) {
