@@ -18,7 +18,7 @@ export function HttpErrorParser(
         code: 500,
         message: err.message
     };
-    console.log(status.message);
+    console.log(err);
     switch(err.name) {
         case ResourceErrorReason.BAD_REQUEST:
             status.code = 400;

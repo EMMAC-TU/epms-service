@@ -203,7 +203,6 @@ export function buildSearchQuery(query: SearchQuery, table: 'employee' | 'patien
         values: countVals
     }
 
-    console.log(countQuery)
     return { searchQuery, countQuery };
 }
 
