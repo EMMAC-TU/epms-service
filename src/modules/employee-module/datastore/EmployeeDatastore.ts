@@ -32,7 +32,6 @@ export class EmployeeDatastore implements IEmployeeDatastore {
         value: string
     }): Promise<boolean> {
         const builtQuery = buildDoesFieldExistQuery('employee', query);
-        console.log(builtQuery);
 
         return (await this.client.query(builtQuery)).rows.length !== 0;
     }
@@ -44,7 +43,6 @@ export class EmployeeDatastore implements IEmployeeDatastore {
      */
     async getEmployee(employeeId: string): Promise<Employee[]> {
         const query = buildGetEntityQuery('employee', employeeId);
-        console.log(query);
 
         const { rows } = await this.client.query(query)
         return rows;
@@ -56,7 +54,6 @@ export class EmployeeDatastore implements IEmployeeDatastore {
      */
     async getEmployees(): Promise<Employee[]> {
         const query = buildGetEntityQuery('employee');
-        console.log(query);
 
         const { rows } = await this.client.query(query);
         return rows
@@ -69,7 +66,6 @@ export class EmployeeDatastore implements IEmployeeDatastore {
      */
     async updateEmployee(employeeId: string, updateEmployee: Partial<Employee>): Promise<void> {
         const query = buildUpdateEntityQuery('employee', employeeId, updateEmployee);
-        console.log(query);
 
         const { rows } = await this.client.query(query);
    
@@ -82,7 +78,6 @@ export class EmployeeDatastore implements IEmployeeDatastore {
      */
     async createEmployee(newEmployee: Employee): Promise<void> {
         const query = buildCreateQuery(newEmployee);
-        console.log(query);
 
         await this.client.query(query);
     }
@@ -93,7 +88,6 @@ export class EmployeeDatastore implements IEmployeeDatastore {
      */
     async searchEmployees(searchQ: SearchQuery): Promise<{ employees: any[], count: number}> {
         const { searchQuery, countQuery } = buildSearchQuery(searchQ,  'employee');
-        console.log(searchQuery);
 
         const { rows } = await this.client.query(searchQuery);
         const count = await this.countQuery(countQuery);
